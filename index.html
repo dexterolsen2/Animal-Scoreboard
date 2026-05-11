@@ -86,6 +86,7 @@
       font-size: clamp(1.8rem, 4vw, 2.5rem);
       font-weight: 700;
       color: var(--accent);
+      min-width: 2.5rem;
     }
 
     .score-display {
@@ -240,6 +241,7 @@
             <div class="flex gap-2 mt-2 justify-center">
               <button id="timer-start" class="btn btn-success px-4 py-2 text-sm">Start</button>
               <button id="timer-stop" class="btn btn-danger px-4 py-2 text-sm">Stop</button>
+              <button id="timer-set" class="btn btn-secondary px-4 py-2 text-sm">Set</button>
             </div>
           </div>
           
@@ -267,6 +269,7 @@
             <div class="flex gap-2 mt-2 justify-center">
               <button id="shotclock-reset" class="btn btn-primary px-3 py-1 text-sm">Reset 24</button>
               <button id="shotclock-14" class="btn btn-secondary px-3 py-1 text-sm">Reset 14</button>
+              <button id="shotclock-toggle" class="btn btn-danger px-3 py-1 text-sm">Off</button>
             </div>
           </div>
         </div>
@@ -430,7 +433,8 @@
         'Rainbowfish': t('#F3E5F5', '#E1BEE7', '#4A148C', '#00BCD4', '#E91E63', '#BA68C8', 'fish'),
         'Wild Axolotl': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'fish'),
         'Albino Axolotl': t('#FCE4EC', '#F8BBD0', '#880E4F', '#F06292', '#EC407A', '#F48FB1', 'fish'),
-        'Jellyfish': t('#0F172A', '#1E293B', '#F8FAFC', '#94A3B8', '#38BDF8', '#334155', 'fish')
+        'Jellyfish': t('#0F172A', '#1E293B', '#F8FAFC', '#94A3B8', '#38BDF8', '#334155', 'fish'),
+        'Dolphin': t('#E1F5FE', '#B3E5FC', '#01579B', '#0288D1', '#03A9F4', '#81D4FA', 'fish')
       },
       snake: {
         'Red-Tail Boa': t('#EFEBE9', '#D7CCC8', '#3E2723', '#C62828', '#8D6E63', '#BCAAA4', 'snake'),
@@ -525,6 +529,7 @@
       gameFormat: 'quarters', // quarters, halves, periods, innings
       gameTimerSeconds: 720,
       shotClockSeconds: 24,
+      shotClockActive: true,
       timerRunning: false,
       timerInterval: null
     };
@@ -545,6 +550,7 @@
     var titleText = document.getElementById('title-text');
     var gameFormatSelect = document.getElementById('game-format');
     var periodContainer = document.getElementById('period-container');
+    var shotclockToggleBtn = document.getElementById('shotclock-toggle');
 
     // Theme Logic
     function populateBreeds() {
@@ -597,7 +603,11 @@
     }
 
     function updateShotClockDisplay() {
-      shotClockEl.textContent = gameState.shotClockSeconds;
+      if (gameState.shotClockActive) {
+        shotClockEl.textContent = gameState.shotClockSeconds;
+      } else {
+        shotClockEl.textContent = '--';
+      }
     }
 
     function startTimer() {
@@ -609,7 +619,7 @@
         if (gameState.gameTimerSeconds > 0) {
           gameState.gameTimerSeconds--;
           updateTimerDisplay();
-          if (gameState.shotClockSeconds > 0) {
+          if (gameState.shotClockSeconds > 0 && gameState.shotClockActive) {
             gameState.shotClockSeconds--;
             updateShotClockDisplay();
           }
@@ -629,15 +639,53 @@
 
     document.getElementById('timer-start').addEventListener('click', startTimer);
     document.getElementById('timer-stop').addEventListener('click', stopTimer);
+    
+    // Custom Time Set
+    document.getElementById('timer-set').addEventListener('click', function() {
+      var input = prompt("Enter custom time in MM:SS format (e.g., 10:00 or 15:30):", formatTime(gameState.gameTimerSeconds));
+      if (input) {
+        var parts = input.split(':');
+        if (parts.length === 2) {
+          var m = parseInt(parts[0], 10);
+          var s = parseInt(parts[1], 10);
+          if (!isNaN(m) && !isNaN(s)) {
+            gameState.gameTimerSeconds = (m * 60) + s;
+            updateTimerDisplay();
+          }
+        } else if (parts.length === 1) {
+          var m = parseInt(parts[0], 10);
+          if (!isNaN(m)) {
+            gameState.gameTimerSeconds = m * 60;
+            updateTimerDisplay();
+          }
+        }
+      }
+    });
 
     // Shot Clock Controls
     document.getElementById('shotclock-reset').addEventListener('click', function() {
-      gameState.shotClockSeconds = 24;
-      updateShotClockDisplay();
+      if(gameState.shotClockActive) {
+        gameState.shotClockSeconds = 24;
+        updateShotClockDisplay();
+      }
     });
 
     document.getElementById('shotclock-14').addEventListener('click', function() {
-      gameState.shotClockSeconds = 14;
+      if(gameState.shotClockActive) {
+        gameState.shotClockSeconds = 14;
+        updateShotClockDisplay();
+      }
+    });
+
+    shotclockToggleBtn.addEventListener('click', function() {
+      gameState.shotClockActive = !gameState.shotClockActive;
+      if (gameState.shotClockActive) {
+        this.textContent = 'Off';
+        this.classList.replace('btn-success', 'btn-danger');
+      } else {
+        this.textContent = 'On';
+        this.classList.replace('btn-danger', 'btn-success');
+      }
       updateShotClockDisplay();
     });
 
@@ -758,7 +806,9 @@
       gameState.team2 = { score: 0, fouls: 0, timeouts: 3 };
       gameState.period = 1;
       gameState.gameTimerSeconds = 720;
-      gameState.shotClockSeconds = 24;
+      if(gameState.shotClockActive) {
+        gameState.shotClockSeconds = 24;
+      }
       
       team1ScoreEl.textContent = '0'; team2ScoreEl.textContent = '0';
       team1FoulsEl.textContent = '0'; team2FoulsEl.textContent = '0';
