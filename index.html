@@ -213,189 +213,230 @@
     }
     .modal-overlay.active .modal-content { transform: scale(1); }
 
+    /* Multi-Game Grid Layouts */
+    #multi-game-container {
+      display: none;
+      gap: 16px;
+      padding: 16px;
+      height: calc(100vh - 66px); /* accounting for top bar height */
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+
+    @media (max-width: 1024px) {
+      .grid-3 { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr 1fr; }
+      .grid-4 { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr 1fr 1fr; }
+    }
+
+    .game-frame {
+      width: 100%;
+      height: 100%;
+      border: 4px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      background-color: var(--bg);
+    }
   </style>
 </head>
 <body class="bg-pattern">
-  <div class="min-h-screen py-6 px-4">
-    <div class="max-w-5xl mx-auto">
-      
-      <header class="flex flex-wrap justify-between items-center gap-4 mb-6">
-        <div class="flex items-center gap-3">
-          <div id="animal-icon-container" class="animal-icon"></div>
-          <div>
-            <h1 class="font-display text-3xl tracking-wide" style="color: var(--fg);">
-              <span id="title-text">Standard Bearded Dragon</span> Scoreboard
-            </h1>
-          </div>
-        </div>
+
+  <div id="multi-game-bar" class="flex flex-wrap justify-center items-center gap-4 p-3" style="background: var(--bg-secondary); border-bottom: 2px solid var(--border);">
+    <span class="font-display text-2xl tracking-wide" style="color: var(--fg); margin-top: 2px;">MULTI-GAME MODE:</span>
+    <div class="flex gap-2">
+      <button class="btn btn-primary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(1)">1 GAME</button>
+      <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(2)">2 GAMES</button>
+      <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(3)">3 GAMES</button>
+      <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(4)">4 GAMES</button>
+    </div>
+  </div>
+
+  <div id="multi-game-container" class="layout-grid"></div>
+
+  <div id="main-content">
+    <div class="min-h-screen py-6 px-4" id="app-wrapper">
+      <div class="max-w-5xl mx-auto">
         
-        <div class="flex gap-2 flex-wrap items-center">
-          <select id="category-select" aria-label="Select Animal Category">
-            <option value="lizard">Lizards</option>
-            <option value="turtle">Turtles</option>
-            <option value="tortoise">Tortoises</option>
-            <option value="dog">Dogs</option>
-            <option value="cat">Cats</option>
-            <option value="bird">Birds</option>
-            <option value="fish">Fish & Aquatic</option>
-            <option value="snake">Snakes</option>
-            <option value="more">More Animals</option>
-            <option value="country">Countries</option>
-          </select>
-          <select id="breed-select" aria-label="Select Breed">
+        <header class="flex flex-wrap justify-between items-center gap-4 mb-6">
+          <div class="flex items-center gap-3">
+            <div id="animal-icon-container" class="animal-icon"></div>
+            <div>
+              <h1 class="font-display text-3xl tracking-wide" style="color: var(--fg);">
+                <span id="title-text">Standard Bearded Dragon</span> Scoreboard
+              </h1>
+            </div>
+          </div>
+          
+          <div class="flex gap-2 flex-wrap items-center">
+            <select id="category-select" aria-label="Select Animal Category">
+              <option value="lizard">Lizards</option>
+              <option value="turtle">Turtles</option>
+              <option value="tortoise">Tortoises</option>
+              <option value="dog">Dogs</option>
+              <option value="cat">Cats</option>
+              <option value="bird">Birds</option>
+              <option value="fish">Fish & Aquatic</option>
+              <option value="snake">Snakes</option>
+              <option value="more">More Animals</option>
+              <option value="country">Countries</option>
             </select>
-        </div>
-      </header>
-
-      <div class="card p-4 mb-6">
-        <div class="flex flex-wrap justify-center items-center gap-8">
-          <div class="text-center">
-            <div class="text-sm font-semibold mb-1" style="color: var(--muted);">GAME TIME</div>
-            <div id="game-timer" class="timer-display">12:00</div>
-            <div class="flex gap-2 mt-2 justify-center">
-              <button id="timer-start" class="btn btn-success px-4 py-2 text-sm">Start</button>
-              <button id="timer-stop" class="btn btn-danger px-4 py-2 text-sm">Stop</button>
-              <button id="timer-set" class="btn btn-secondary px-4 py-2 text-sm">Set</button>
-            </div>
-          </div>
-          
-          <div class="text-center flex flex-col items-center">
-            <div class="flex items-center gap-2 mb-1">
-              <div class="text-sm font-semibold" style="color: var(--muted);">PERIOD:</div>
-              <select id="game-format" class="format-select">
-                <option value="quarters">Quarters (4)</option>
-                <option value="halves">Halves (2)</option>
-                <option value="periods">Periods (3)</option>
-                <option value="innings">Innings (9)</option>
+            <select id="breed-select" aria-label="Select Breed">
               </select>
+          </div>
+        </header>
+
+        <div class="card p-4 mb-6">
+          <div class="flex flex-wrap justify-center items-center gap-8">
+            <div class="text-center">
+              <div class="text-sm font-semibold mb-1" style="color: var(--muted);">GAME TIME</div>
+              <div id="game-timer" class="timer-display">12:00</div>
+              <div class="flex gap-2 mt-2 justify-center">
+                <button id="timer-start" class="btn btn-success px-4 py-2 text-sm">Start</button>
+                <button id="timer-stop" class="btn btn-danger px-4 py-2 text-sm">Stop</button>
+                <button id="timer-set" class="btn btn-secondary px-4 py-2 text-sm">Set</button>
+              </div>
             </div>
-            <div id="period-container" class="period-container">
+            
+            <div class="text-center flex flex-col items-center">
+              <div class="flex items-center gap-2 mb-1">
+                <div class="text-sm font-semibold" style="color: var(--muted);">PERIOD:</div>
+                <select id="game-format" class="format-select">
+                  <option value="quarters">Quarters (4)</option>
+                  <option value="halves">Halves (2)</option>
+                  <option value="periods">Periods (3)</option>
+                  <option value="innings">Innings (9)</option>
+                </select>
               </div>
-            <div class="flex flex-col gap-2 mt-2 items-center">
+              <div id="period-container" class="period-container">
+                </div>
+              <div class="flex flex-col gap-2 mt-2 items-center">
+                <div class="flex gap-2">
+                  <button id="period-prev" class="btn btn-secondary px-3 py-1 text-sm">Prev</button>
+                  <button id="period-next" class="btn btn-secondary px-3 py-1 text-sm">Next</button>
+                </div>
+                <button id="penalty-toggle" class="btn btn-secondary px-3 py-1 text-xs">Penalty Shootout: Off</button>
+              </div>
+            </div>
+            
+            <div class="text-center">
+              <div class="text-sm font-semibold mb-1" style="color: var(--muted);">SHOT CLOCK</div>
+              <div id="shotclock" class="shotclock-display">24</div>
+              <div class="flex gap-2 mt-2 justify-center">
+                <button id="shotclock-reset" class="btn btn-primary px-3 py-1 text-sm">Reset 24</button>
+                <button id="shotclock-14" class="btn btn-secondary px-3 py-1 text-sm">Reset 14</button>
+                <button id="shotclock-toggle" class="btn btn-danger px-3 py-1 text-sm">Off</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div class="card p-6">
+            <div class="flex justify-between items-center mb-4">
+              <input type="text" id="team1-name" value="Home Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full" style="color: var(--fg);">
+              <button onclick="clearTeamStat(1, 'score')" class="btn btn-secondary px-2 py-1 text-xs ml-2">Clear Score</button>
+            </div>
+            <div class="text-center mb-4"><div id="team1-score" class="score-display">0</div></div>
+            <div class="flex justify-center gap-2 mb-6">
+              <button onclick="changeScore(1, -1)" class="btn btn-primary w-12 h-12 text-xl">-</button>
+              <button onclick="changeScore(1, 1)" class="btn btn-primary w-12 h-12 text-xl">+1</button>
+              <button onclick="changeScore(1, 2)" class="btn btn-primary w-12 h-12 text-xl">+2</button>
+              <button onclick="changeScore(1, 3)" class="btn btn-primary w-12 h-12 text-xl">+3</button>
+            </div>
+            <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--bg-secondary);">
+              <div><span class="font-semibold">Fouls / Errors:</span><span id="team1-fouls" class="stat-value ml-2">0</span></div>
               <div class="flex gap-2">
-                <button id="period-prev" class="btn btn-secondary px-3 py-1 text-sm">Prev</button>
-                <button id="period-next" class="btn btn-secondary px-3 py-1 text-sm">Next</button>
+                <button onclick="changeFouls(1, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
+                <button onclick="changeFouls(1, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
+                <button onclick="clearTeamStat(1, 'fouls')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
-              <button id="penalty-toggle" class="btn btn-secondary px-3 py-1 text-xs">Penalty Shootout: Off</button>
+            </div>
+            <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--bg-secondary);">
+              <div>
+                <span class="font-semibold">Timeouts:</span>
+                <div id="team1-timeouts-dots" class="flex gap-1 mt-1"><div class="timeout-dot"></div><div class="timeout-dot"></div><div class="timeout-dot"></div></div>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="changeTimeouts(1, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
+                <button onclick="changeTimeouts(1, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
+                <button onclick="clearTeamStat(1, 'timeouts')" class="btn btn-danger w-8 h-8 text-xs">C</button>
+              </div>
+            </div>
+            <div id="team1-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--bg-secondary);">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold">Penalty Shootout</span>
+                <div class="flex gap-2">
+                  <button onclick="addPenalty(1)" class="btn btn-secondary px-2 py-1 text-xs">+ Kick</button>
+                  <button onclick="clearTeamStat(1, 'penalties')" class="btn btn-danger px-2 py-1 text-xs">Clear</button>
+                </div>
+              </div>
+              <div id="team1-penalties" class="flex flex-wrap gap-2 justify-center mt-1"></div>
             </div>
           </div>
           
-          <div class="text-center">
-            <div class="text-sm font-semibold mb-1" style="color: var(--muted);">SHOT CLOCK</div>
-            <div id="shotclock" class="shotclock-display">24</div>
-            <div class="flex gap-2 mt-2 justify-center">
-              <button id="shotclock-reset" class="btn btn-primary px-3 py-1 text-sm">Reset 24</button>
-              <button id="shotclock-14" class="btn btn-secondary px-3 py-1 text-sm">Reset 14</button>
-              <button id="shotclock-toggle" class="btn btn-danger px-3 py-1 text-sm">Off</button>
+          <div class="card p-6">
+            <div class="flex justify-between items-center mb-4">
+              <input type="text" id="team2-name" value="Away Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full" style="color: var(--fg);">
+              <button onclick="clearTeamStat(2, 'score')" class="btn btn-secondary px-2 py-1 text-xs ml-2">Clear Score</button>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6 mb-6">
-        <div class="card p-6">
-          <div class="flex justify-between items-center mb-4">
-            <input type="text" id="team1-name" value="Home Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full" style="color: var(--fg);">
-            <button onclick="clearTeamStat(1, 'score')" class="btn btn-secondary px-2 py-1 text-xs ml-2">Clear Score</button>
-          </div>
-          <div class="text-center mb-4"><div id="team1-score" class="score-display">0</div></div>
-          <div class="flex justify-center gap-2 mb-6">
-            <button onclick="changeScore(1, -1)" class="btn btn-primary w-12 h-12 text-xl">-</button>
-            <button onclick="changeScore(1, 1)" class="btn btn-primary w-12 h-12 text-xl">+1</button>
-            <button onclick="changeScore(1, 2)" class="btn btn-primary w-12 h-12 text-xl">+2</button>
-            <button onclick="changeScore(1, 3)" class="btn btn-primary w-12 h-12 text-xl">+3</button>
-          </div>
-          <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--bg-secondary);">
-            <div><span class="font-semibold">Fouls / Errors:</span><span id="team1-fouls" class="stat-value ml-2">0</span></div>
-            <div class="flex gap-2">
-              <button onclick="changeFouls(1, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
-              <button onclick="changeFouls(1, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
-              <button onclick="clearTeamStat(1, 'fouls')" class="btn btn-danger w-8 h-8 text-xs">C</button>
+            <div class="text-center mb-4"><div id="team2-score" class="score-display">0</div></div>
+            <div class="flex justify-center gap-2 mb-6">
+              <button onclick="changeScore(2, -1)" class="btn btn-primary w-12 h-12 text-xl">-</button>
+              <button onclick="changeScore(2, 1)" class="btn btn-primary w-12 h-12 text-xl">+1</button>
+              <button onclick="changeScore(2, 2)" class="btn btn-primary w-12 h-12 text-xl">+2</button>
+              <button onclick="changeScore(2, 3)" class="btn btn-primary w-12 h-12 text-xl">+3</button>
             </div>
-          </div>
-          <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--bg-secondary);">
-            <div>
-              <span class="font-semibold">Timeouts:</span>
-              <div id="team1-timeouts-dots" class="flex gap-1 mt-1"><div class="timeout-dot"></div><div class="timeout-dot"></div><div class="timeout-dot"></div></div>
-            </div>
-            <div class="flex gap-2">
-              <button onclick="changeTimeouts(1, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
-              <button onclick="changeTimeouts(1, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
-              <button onclick="clearTeamStat(1, 'timeouts')" class="btn btn-danger w-8 h-8 text-xs">C</button>
-            </div>
-          </div>
-          <div id="team1-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--bg-secondary);">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-semibold">Penalty Shootout</span>
+            <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--bg-secondary);">
+              <div><span class="font-semibold">Fouls / Errors:</span><span id="team2-fouls" class="stat-value ml-2">0</span></div>
               <div class="flex gap-2">
-                <button onclick="addPenalty(1)" class="btn btn-secondary px-2 py-1 text-xs">+ Kick</button>
-                <button onclick="clearTeamStat(1, 'penalties')" class="btn btn-danger px-2 py-1 text-xs">Clear</button>
+                <button onclick="changeFouls(2, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
+                <button onclick="changeFouls(2, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
+                <button onclick="clearTeamStat(2, 'fouls')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
             </div>
-            <div id="team1-penalties" class="flex flex-wrap gap-2 justify-center mt-1"></div>
-          </div>
-        </div>
-        
-        <div class="card p-6">
-          <div class="flex justify-between items-center mb-4">
-            <input type="text" id="team2-name" value="Away Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full" style="color: var(--fg);">
-            <button onclick="clearTeamStat(2, 'score')" class="btn btn-secondary px-2 py-1 text-xs ml-2">Clear Score</button>
-          </div>
-          <div class="text-center mb-4"><div id="team2-score" class="score-display">0</div></div>
-          <div class="flex justify-center gap-2 mb-6">
-            <button onclick="changeScore(2, -1)" class="btn btn-primary w-12 h-12 text-xl">-</button>
-            <button onclick="changeScore(2, 1)" class="btn btn-primary w-12 h-12 text-xl">+1</button>
-            <button onclick="changeScore(2, 2)" class="btn btn-primary w-12 h-12 text-xl">+2</button>
-            <button onclick="changeScore(2, 3)" class="btn btn-primary w-12 h-12 text-xl">+3</button>
-          </div>
-          <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--bg-secondary);">
-            <div><span class="font-semibold">Fouls / Errors:</span><span id="team2-fouls" class="stat-value ml-2">0</span></div>
-            <div class="flex gap-2">
-              <button onclick="changeFouls(2, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
-              <button onclick="changeFouls(2, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
-              <button onclick="clearTeamStat(2, 'fouls')" class="btn btn-danger w-8 h-8 text-xs">C</button>
-            </div>
-          </div>
-          <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--bg-secondary);">
-            <div>
-              <span class="font-semibold">Timeouts:</span>
-              <div id="team2-timeouts-dots" class="flex gap-1 mt-1"><div class="timeout-dot"></div><div class="timeout-dot"></div><div class="timeout-dot"></div></div>
-            </div>
-            <div class="flex gap-2">
-              <button onclick="changeTimeouts(2, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
-              <button onclick="changeTimeouts(2, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
-              <button onclick="clearTeamStat(2, 'timeouts')" class="btn btn-danger w-8 h-8 text-xs">C</button>
-            </div>
-          </div>
-          <div id="team2-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--bg-secondary);">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-semibold">Penalty Shootout</span>
+            <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--bg-secondary);">
+              <div>
+                <span class="font-semibold">Timeouts:</span>
+                <div id="team2-timeouts-dots" class="flex gap-1 mt-1"><div class="timeout-dot"></div><div class="timeout-dot"></div><div class="timeout-dot"></div></div>
+              </div>
               <div class="flex gap-2">
-                <button onclick="addPenalty(2)" class="btn btn-secondary px-2 py-1 text-xs">+ Kick</button>
-                <button onclick="clearTeamStat(2, 'penalties')" class="btn btn-danger px-2 py-1 text-xs">Clear</button>
+                <button onclick="changeTimeouts(2, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
+                <button onclick="changeTimeouts(2, 1)" class="btn btn-secondary w-8 h-8 text-sm">+</button>
+                <button onclick="clearTeamStat(2, 'timeouts')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
             </div>
-            <div id="team2-penalties" class="flex flex-wrap gap-2 justify-center mt-1"></div>
+            <div id="team2-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--bg-secondary);">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold">Penalty Shootout</span>
+                <div class="flex gap-2">
+                  <button onclick="addPenalty(2)" class="btn btn-secondary px-2 py-1 text-xs">+ Kick</button>
+                  <button onclick="clearTeamStat(2, 'penalties')" class="btn btn-danger px-2 py-1 text-xs">Clear</button>
+                </div>
+              </div>
+              <div id="team2-penalties" class="flex flex-wrap gap-2 justify-center mt-1"></div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="card p-4 mb-6">
-        <div class="text-sm font-semibold mb-3 text-center" style="color: var(--muted);">CLEAR INDIVIDUAL STATS</div>
-        <div class="flex flex-wrap justify-center gap-3">
-          <button onclick="clearAllScores()" class="btn btn-danger px-4 py-2 text-sm">Clear All Scores</button>
-          <button onclick="clearAllFouls()" class="btn btn-danger px-4 py-2 text-sm">Clear All Fouls</button>
-          <button onclick="clearAllTimeouts()" class="btn btn-danger px-4 py-2 text-sm">Clear All Timeouts</button>
-          <button onclick="clearPeriod()" class="btn btn-danger px-4 py-2 text-sm">Clear Period</button>
-          <button onclick="clearTimer()" class="btn btn-danger px-4 py-2 text-sm">Clear Timer</button>
-          <button onclick="clearShotClock()" class="btn btn-danger px-4 py-2 text-sm">Clear Shot Clock</button>
+        <div class="card p-4 mb-6">
+          <div class="text-sm font-semibold mb-3 text-center" style="color: var(--muted);">CLEAR INDIVIDUAL STATS</div>
+          <div class="flex flex-wrap justify-center gap-3">
+            <button onclick="clearAllScores()" class="btn btn-danger px-4 py-2 text-sm">Clear All Scores</button>
+            <button onclick="clearAllFouls()" class="btn btn-danger px-4 py-2 text-sm">Clear All Fouls</button>
+            <button onclick="clearAllTimeouts()" class="btn btn-danger px-4 py-2 text-sm">Clear All Timeouts</button>
+            <button onclick="clearPeriod()" class="btn btn-danger px-4 py-2 text-sm">Clear Period</button>
+            <button onclick="clearTimer()" class="btn btn-danger px-4 py-2 text-sm">Clear Timer</button>
+            <button onclick="clearShotClock()" class="btn btn-danger px-4 py-2 text-sm">Clear Shot Clock</button>
+          </div>
         </div>
-      </div>
 
-      <div class="text-center">
-        <button onclick="showResetModal()" class="btn btn-danger px-6 py-3 text-sm font-bold">RESET ENTIRE GAME</button>
-      </div>
+        <div class="text-center">
+          <button onclick="showResetModal()" class="btn btn-danger px-6 py-3 text-sm font-bold">RESET ENTIRE GAME</button>
+        </div>
 
+      </div>
     </div>
   </div>
 
@@ -411,6 +452,56 @@
   </div>
 
   <script>
+    // --- Multi-Game Control Logic ---
+    function setMultiGame(num) {
+      const mainContent = document.getElementById('main-content');
+      const container = document.getElementById('multi-game-container');
+      const buttons = document.querySelectorAll('#multi-game-bar button');
+      
+      buttons.forEach((btn, idx) => {
+        if (idx + 1 === num) {
+          btn.classList.add('btn-primary');
+          btn.classList.remove('btn-secondary');
+        } else {
+          btn.classList.add('btn-secondary');
+          btn.classList.remove('btn-primary');
+        }
+      });
+      
+      if (num === 1) {
+        mainContent.style.display = 'block';
+        container.style.display = 'none';
+        container.innerHTML = '';
+      } else {
+        mainContent.style.display = 'none';
+        container.style.display = 'grid';
+        container.className = 'layout-grid grid-' + num;
+        container.innerHTML = '';
+        
+        // Use clean URL with hash suffix to spawn identical isolated instances
+        const cleanUrl = window.location.href.split('#')[0].split('?')[0];
+
+        for (let i = 0; i < num; i++) {
+          const iframe = document.createElement('iframe');
+          iframe.className = 'game-frame';
+          iframe.src = cleanUrl + '#child' + i;
+          container.appendChild(iframe);
+        }
+      }
+    }
+
+    // Hide Top Bar and adjust layout if we are inside a Multi-Game iframe
+    if (window !== window.parent) {
+      const mgb = document.getElementById('multi-game-bar');
+      if (mgb) mgb.style.display = 'none';
+      
+      const appWrap = document.getElementById('app-wrapper');
+      if (appWrap) {
+        appWrap.classList.remove('py-6');
+        appWrap.classList.add('py-2');
+      }
+    }
+
     // --- Dynamic SVG Template Generators ---
     const svgLizard = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="40" ry="20" fill="${c.accent}"/><path d="M30 45 L35 35 L40 45 L45 32 L50 45 L55 30 L60 45 L65 30 L70 45 L75 32 L80 45 L85 35 L90 45" fill="${c.border}"/><ellipse cx="95" cy="48" rx="16" ry="12" fill="${c.bg2}"/><circle cx="100" cy="45" r="4" fill="${c.fg}"/></svg>`;
     const svgTurtle = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="55" cy="45" rx="35" ry="25" fill="${c.muted}"/><ellipse cx="55" cy="45" rx="28" ry="20" fill="${c.accent}"/><path d="M55 25 L55 65 M35 35 Q55 50 75 35 M35 55 Q55 40 75 55" stroke="${c.border}" stroke-width="2"/><ellipse cx="95" cy="50" rx="14" ry="11" fill="${c.muted}"/><circle cx="100" cy="47" r="3.5" fill="${c.fg}"/></svg>`;
@@ -761,12 +852,6 @@
         'Zambia': _c('#198A00', '#000000', '#EF7D00', 'zm'),
         'Zimbabwe': _c('#FFFFFF', '#006B3F', '#D80027', 'zw')
       }
-    };
-
-    // Mapping icons
-    const iconGenerators = {
-      lizard: svgLizard, turtle: svgTurtle, dog: svgDog, cat: svgCat,
-      bird: svgBird, fish: svgFish, snake: svgSnake, mammal: svgMammal, country: svgCountry
     };
 
     // Game State
