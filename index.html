@@ -19,6 +19,17 @@
       --card: #FFFFFF;
       --border: #D4A574;
       --glow: rgba(224, 123, 57, 0.3);
+      
+      /* Dynamic contrast text variables */
+      --card-text: #000000;
+      --inner-text: #000000;
+      --accent-text: #FFFFFF;
+      
+      /* Safe interior variables (Guaranteed not to be white) */
+      --card-accent: #E07B39;
+      --card-bg-secondary: #F5E6C8;
+      --card-border: #D4A574;
+      --card-muted: #8B7355;
     }
 
     * { box-sizing: border-box; }
@@ -45,6 +56,7 @@
       border: 2px solid var(--border);
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      color: var(--card-text);
       transition: all 0.3s ease;
     }
 
@@ -59,13 +71,13 @@
 
     .btn:active { transform: scale(0.96); }
 
-    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary { background: var(--card-accent); color: var(--accent-text); }
     .btn-primary:hover { filter: brightness(1.1); }
 
     .btn-secondary {
-      background: var(--bg-secondary);
-      color: var(--fg);
-      border: 2px solid var(--border);
+      background: var(--card-bg-secondary);
+      color: var(--inner-text);
+      border: 2px solid var(--card-border);
     }
     .btn-secondary:hover { filter: brightness(0.95); }
 
@@ -78,28 +90,28 @@
     .timer-display {
       font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
-      color: var(--fg);
+      color: var(--card-text);
       letter-spacing: 2px;
     }
 
     .shotclock-display {
       font-size: clamp(1.8rem, 4vw, 2.5rem);
       font-weight: 700;
-      color: var(--accent);
+      color: var(--card-accent);
       min-width: 2.5rem;
     }
 
     .score-display {
       font-size: clamp(3rem, 8vw, 6rem);
       font-weight: 700;
-      color: var(--accent);
+      color: var(--card-accent);
       line-height: 1;
     }
 
     .stat-value {
       font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 700;
-      color: var(--fg);
+      color: inherit;
     }
 
     .period-container {
@@ -115,20 +127,21 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: var(--bg-secondary);
-      border: 2px solid var(--border);
+      background: var(--card-bg-secondary);
+      border: 2px solid var(--card-border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 600;
       font-size: 0.9rem;
+      color: var(--inner-text);
       transition: all 0.3s ease;
     }
 
     .period-indicator.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
+      background: var(--card-accent);
+      border-color: var(--card-accent);
+      color: var(--accent-text);
     }
 
     .animal-icon { transition: transform 0.3s ease; }
@@ -145,12 +158,12 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--card-accent);
       transition: all 0.3s ease;
     }
     .timeout-dot.used {
-      background: var(--bg-secondary);
-      border: 2px solid var(--border);
+      background: var(--card-bg-secondary);
+      border: 2px solid var(--card-border);
     }
 
     /* Penalty Shootout Styles */
@@ -158,18 +171,22 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--border);
+      background: var(--card-bg-secondary);
+      border: 2px solid var(--card-border);
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .pk-dot.made { background: #16A34A; border-color: #16A34A; }
     .pk-dot.missed { background: #DC2626; border-color: #DC2626; }
 
+    input[type="text"] {
+      color: inherit;
+    }
+
     select {
       background: var(--card);
-      color: var(--fg);
-      border: 2px solid var(--border);
+      color: var(--card-text);
+      border: 2px solid var(--card-border);
       padding: 8px 12px;
       border-radius: 8px;
       font-family: inherit;
@@ -178,14 +195,23 @@
     }
     select:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: var(--card-accent);
     }
     
+    /* Strict Black Text Rule for Options */
+    #category-select, #breed-select,
+    #category-select option, #breed-select option,
+    #game-format option {
+      color: #000000 !important;
+      background-color: #FFFFFF !important;
+    }
+
     .format-select {
       padding: 2px 6px;
       font-size: 0.8rem;
       margin-bottom: 6px;
-      background: var(--bg-secondary);
+      background: var(--card-bg-secondary) !important;
+      color: var(--inner-text) !important;
     }
 
     .modal-overlay {
@@ -216,11 +242,12 @@
     /* Multi-Game Grid Layouts */
     #multi-game-container {
       display: none;
-      gap: 16px;
-      padding: 16px;
-      height: calc(100vh - 66px); /* accounting for top bar height */
+      gap: 0; /* Ensures exact border splits */
+      padding: 0;
+      height: 100vh;
       width: 100vw;
       box-sizing: border-box;
+      margin: 0;
     }
     .grid-2 { grid-template-columns: 1fr 1fr; }
     .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
@@ -234,28 +261,29 @@
     .game-frame {
       width: 100%;
       height: 100%;
-      border: 4px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 2px solid var(--border); /* Forms a 4px exact line when combined */
+      border-radius: 0; /* Ensures corners meet flawlessly */
+      box-shadow: none;
       background-color: var(--bg);
     }
   </style>
 </head>
 <body class="bg-pattern">
 
-  <div id="multi-game-bar" class="flex flex-wrap justify-center items-center gap-4 p-3" style="background: var(--bg-secondary); border-bottom: 2px solid var(--border);">
-    <span class="font-display text-2xl tracking-wide" style="color: var(--fg); margin-top: 2px;">MULTI-GAME MODE:</span>
-    <div class="flex gap-2">
-      <button class="btn btn-primary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(1)">1 GAME</button>
-      <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(2)">2 GAMES</button>
-      <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(3)">3 GAMES</button>
-      <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(4)">4 GAMES</button>
-    </div>
-  </div>
-
   <div id="multi-game-container" class="layout-grid"></div>
 
   <div id="main-content">
+    
+    <div id="multi-game-bar" class="flex flex-wrap justify-center items-center gap-4 p-3" style="background: var(--bg-secondary); border-bottom: 2px solid var(--border);">
+      <span class="font-display text-2xl tracking-wide" style="color: var(--fg); margin-top: 2px;">MULTI-GAME MODE:</span>
+      <div class="flex gap-2">
+        <button class="btn btn-primary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(1)">1 GAME</button>
+        <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(2)">2 GAMES</button>
+        <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(3)">3 GAMES</button>
+        <button class="btn btn-secondary px-4 py-1.5 text-sm font-bold" onclick="setMultiGame(4)">4 GAMES</button>
+      </div>
+    </div>
+
     <div class="min-h-screen py-6 px-4" id="app-wrapper">
       <div class="max-w-5xl mx-auto">
         
@@ -290,7 +318,7 @@
         <div class="card p-4 mb-6">
           <div class="flex flex-wrap justify-center items-center gap-8">
             <div class="text-center">
-              <div class="text-sm font-semibold mb-1" style="color: var(--muted);">GAME TIME</div>
+              <div class="text-sm font-semibold mb-1" style="color: var(--card-muted);">GAME TIME</div>
               <div id="game-timer" class="timer-display">12:00</div>
               <div class="flex gap-2 mt-2 justify-center">
                 <button id="timer-start" class="btn btn-success px-4 py-2 text-sm">Start</button>
@@ -301,7 +329,7 @@
             
             <div class="text-center flex flex-col items-center">
               <div class="flex items-center gap-2 mb-1">
-                <div class="text-sm font-semibold" style="color: var(--muted);">PERIOD:</div>
+                <div class="text-sm font-semibold" style="color: var(--card-muted);">PERIOD:</div>
                 <select id="game-format" class="format-select">
                   <option value="quarters">Quarters (4)</option>
                   <option value="halves">Halves (2)</option>
@@ -321,7 +349,7 @@
             </div>
             
             <div class="text-center">
-              <div class="text-sm font-semibold mb-1" style="color: var(--muted);">SHOT CLOCK</div>
+              <div class="text-sm font-semibold mb-1" style="color: var(--card-muted);">SHOT CLOCK</div>
               <div id="shotclock" class="shotclock-display">24</div>
               <div class="flex gap-2 mt-2 justify-center">
                 <button id="shotclock-reset" class="btn btn-primary px-3 py-1 text-sm">Reset 24</button>
@@ -335,7 +363,7 @@
         <div class="grid md:grid-cols-2 gap-6 mb-6">
           <div class="card p-6">
             <div class="flex justify-between items-center mb-4">
-              <input type="text" id="team1-name" value="Home Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full" style="color: var(--fg);">
+              <input type="text" id="team1-name" value="Home Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full">
               <button onclick="clearTeamStat(1, 'score')" class="btn btn-secondary px-2 py-1 text-xs ml-2">Clear Score</button>
             </div>
             <div class="text-center mb-4"><div id="team1-score" class="score-display">0</div></div>
@@ -345,7 +373,7 @@
               <button onclick="changeScore(1, 2)" class="btn btn-primary w-12 h-12 text-xl">+2</button>
               <button onclick="changeScore(1, 3)" class="btn btn-primary w-12 h-12 text-xl">+3</button>
             </div>
-            <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--bg-secondary);">
+            <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--card-bg-secondary); color: var(--inner-text);">
               <div><span class="font-semibold">Fouls / Errors:</span><span id="team1-fouls" class="stat-value ml-2">0</span></div>
               <div class="flex gap-2">
                 <button onclick="changeFouls(1, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
@@ -353,7 +381,7 @@
                 <button onclick="clearTeamStat(1, 'fouls')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
             </div>
-            <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--bg-secondary);">
+            <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--card-bg-secondary); color: var(--inner-text);">
               <div>
                 <span class="font-semibold">Timeouts:</span>
                 <div id="team1-timeouts-dots" class="flex gap-1 mt-1"><div class="timeout-dot"></div><div class="timeout-dot"></div><div class="timeout-dot"></div></div>
@@ -364,7 +392,7 @@
                 <button onclick="clearTeamStat(1, 'timeouts')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
             </div>
-            <div id="team1-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--bg-secondary);">
+            <div id="team1-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--card-bg-secondary); color: var(--inner-text);">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">Penalty Shootout</span>
                 <div class="flex gap-2">
@@ -378,7 +406,7 @@
           
           <div class="card p-6">
             <div class="flex justify-between items-center mb-4">
-              <input type="text" id="team2-name" value="Away Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full" style="color: var(--fg);">
+              <input type="text" id="team2-name" value="Away Team" class="text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-current outline-none w-full">
               <button onclick="clearTeamStat(2, 'score')" class="btn btn-secondary px-2 py-1 text-xs ml-2">Clear Score</button>
             </div>
             <div class="text-center mb-4"><div id="team2-score" class="score-display">0</div></div>
@@ -388,7 +416,7 @@
               <button onclick="changeScore(2, 2)" class="btn btn-primary w-12 h-12 text-xl">+2</button>
               <button onclick="changeScore(2, 3)" class="btn btn-primary w-12 h-12 text-xl">+3</button>
             </div>
-            <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--bg-secondary);">
+            <div class="flex justify-between items-center p-3 rounded-lg mb-3" style="background: var(--card-bg-secondary); color: var(--inner-text);">
               <div><span class="font-semibold">Fouls / Errors:</span><span id="team2-fouls" class="stat-value ml-2">0</span></div>
               <div class="flex gap-2">
                 <button onclick="changeFouls(2, -1)" class="btn btn-secondary w-8 h-8 text-sm">-</button>
@@ -396,7 +424,7 @@
                 <button onclick="clearTeamStat(2, 'fouls')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
             </div>
-            <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--bg-secondary);">
+            <div class="flex justify-between items-center p-3 rounded-lg" style="background: var(--card-bg-secondary); color: var(--inner-text);">
               <div>
                 <span class="font-semibold">Timeouts:</span>
                 <div id="team2-timeouts-dots" class="flex gap-1 mt-1"><div class="timeout-dot"></div><div class="timeout-dot"></div><div class="timeout-dot"></div></div>
@@ -407,7 +435,7 @@
                 <button onclick="clearTeamStat(2, 'timeouts')" class="btn btn-danger w-8 h-8 text-xs">C</button>
               </div>
             </div>
-            <div id="team2-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--bg-secondary);">
+            <div id="team2-penalties-container" class="hidden flex flex-col p-3 rounded-lg mt-3" style="background: var(--card-bg-secondary); color: var(--inner-text);">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">Penalty Shootout</span>
                 <div class="flex gap-2">
@@ -421,7 +449,7 @@
         </div>
 
         <div class="card p-4 mb-6">
-          <div class="text-sm font-semibold mb-3 text-center" style="color: var(--muted);">CLEAR INDIVIDUAL STATS</div>
+          <div class="text-sm font-semibold mb-3 text-center" style="color: var(--card-muted);">CLEAR INDIVIDUAL STATS</div>
           <div class="flex flex-wrap justify-center gap-3">
             <button onclick="clearAllScores()" class="btn btn-danger px-4 py-2 text-sm">Clear All Scores</button>
             <button onclick="clearAllFouls()" class="btn btn-danger px-4 py-2 text-sm">Clear All Fouls</button>
@@ -442,8 +470,8 @@
 
   <div id="reset-modal" class="modal-overlay">
     <div class="modal-content">
-      <h3 class="font-display text-2xl mb-4" style="color: var(--fg);">Reset Entire Game?</h3>
-      <p class="mb-6" style="color: var(--muted);">This will clear all scores, fouls, timeouts, reset the timer and shot clock.</p>
+      <h3 class="font-display text-2xl mb-4">Reset Entire Game?</h3>
+      <p class="mb-6" style="color: var(--card-muted);">This will clear all scores, fouls, timeouts, reset the timer and shot clock.</p>
       <div class="flex gap-3 justify-end">
         <button onclick="closeResetModal()" class="btn btn-secondary px-4 py-2">Cancel</button>
         <button onclick="resetAll()" class="btn btn-danger px-4 py-2">Reset Everything</button>
@@ -452,22 +480,18 @@
   </div>
 
   <script>
-    // --- Multi-Game Control Logic ---
+    // --- Multi-Game Safe Communication Logic ---
     function setMultiGame(num) {
+      if (window.location.hash.indexOf('child') !== -1) {
+         window.parent.postMessage({ action: 'setMultiGame', num: num }, '*');
+         return;
+      }
+      
       const mainContent = document.getElementById('main-content');
       const container = document.getElementById('multi-game-container');
-      const buttons = document.querySelectorAll('#multi-game-bar button');
       
-      buttons.forEach((btn, idx) => {
-        if (idx + 1 === num) {
-          btn.classList.add('btn-primary');
-          btn.classList.remove('btn-secondary');
-        } else {
-          btn.classList.add('btn-secondary');
-          btn.classList.remove('btn-primary');
-        }
-      });
-      
+      updateMultiGameButtons(num, document);
+
       if (num === 1) {
         mainContent.style.display = 'block';
         container.style.display = 'none';
@@ -478,29 +502,49 @@
         container.className = 'layout-grid grid-' + num;
         container.innerHTML = '';
         
-        // Use clean URL with hash suffix to spawn identical isolated instances
         const cleanUrl = window.location.href.split('#')[0].split('?')[0];
-
         for (let i = 0; i < num; i++) {
           const iframe = document.createElement('iframe');
           iframe.className = 'game-frame';
-          iframe.src = cleanUrl + '#child' + i;
+          iframe.src = cleanUrl + '#child_' + num;
           container.appendChild(iframe);
         }
       }
     }
 
-    // Hide Top Bar and adjust layout if we are inside a Multi-Game iframe
-    if (window !== window.parent) {
-      const mgb = document.getElementById('multi-game-bar');
-      if (mgb) mgb.style.display = 'none';
-      
-      const appWrap = document.getElementById('app-wrapper');
-      if (appWrap) {
-        appWrap.classList.remove('py-6');
-        appWrap.classList.add('py-2');
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.action === 'setMultiGame') {
+        setMultiGame(e.data.num);
       }
+    });
+
+    function updateMultiGameButtons(num, doc) {
+      const buttons = doc.querySelectorAll('#multi-game-bar button');
+      buttons.forEach((btn, idx) => {
+        if (idx + 1 === num) {
+          btn.classList.add('btn-primary');
+          btn.classList.remove('btn-secondary');
+        } else {
+          btn.classList.add('btn-secondary');
+          btn.classList.remove('btn-primary');
+        }
+      });
     }
+
+    try {
+      if (window.location.hash.indexOf('child') !== -1) {
+        const appWrap = document.getElementById('app-wrapper');
+        if (appWrap) {
+          appWrap.classList.remove('py-6');
+          appWrap.classList.add('py-2');
+        }
+        const parts = window.location.hash.split('_');
+        if (parts.length > 1) {
+          const num = parseInt(parts[1], 10);
+          if (!isNaN(num)) updateMultiGameButtons(num, document);
+        }
+      }
+    } catch (e) {}
 
     // --- Dynamic SVG Template Generators ---
     const svgLizard = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="40" ry="20" fill="${c.accent}"/><path d="M30 45 L35 35 L40 45 L45 32 L50 45 L55 30 L60 45 L65 30 L70 45 L75 32 L80 45 L85 35 L90 45" fill="${c.border}"/><ellipse cx="95" cy="48" rx="16" ry="12" fill="${c.bg2}"/><circle cx="100" cy="45" r="4" fill="${c.fg}"/></svg>`;
@@ -512,14 +556,12 @@
     const svgSnake = (c) => `<svg viewBox="0 0 120 80"><path d="M20 50 Q40 20 60 50 T100 50" stroke="${c.accent}" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M20 50 Q40 20 60 50 T100 50" stroke="${c.border}" stroke-width="4" fill="none" stroke-dasharray="6,4"/><circle cx="95" cy="48" r="3" fill="${c.fg}"/></svg>`;
     const svgMammal = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="35" ry="22" fill="${c.accent}"/><circle cx="90" cy="40" r="18" fill="${c.bg2}"/><circle cx="82" cy="28" r="6" fill="${c.muted}"/><circle cx="98" cy="28" r="6" fill="${c.muted}"/><circle cx="85" cy="38" r="3" fill="${c.fg}"/><circle cx="95" cy="38" r="3" fill="${c.fg}"/><ellipse cx="90" cy="45" rx="4" ry="2" fill="${c.fg}"/></svg>`;
     
-    // Renders the country flag. Custom SVGs for cases not standardly available in basic ISO
     const svgCountry = (c, code) => {
       if (code === 'trnc') return `<svg viewBox="0 0 120 80"><rect width="120" height="80" fill="#FFF"/><rect y="10" width="120" height="10" fill="#E30A17"/><rect y="60" width="120" height="10" fill="#E30A17"/><path d="M 55 40 A 10 10 0 1 1 55 25 A 12 12 0 1 0 55 40 Z M 62 32 L 67 38 L 65 30 L 72 27 L 64 27 Z" fill="#E30A17"/></svg>`;
       if (code === 'kurd') return `<svg viewBox="0 0 120 80"><rect width="120" height="26.6" fill="#EB2323"/><rect y="26.6" width="120" height="26.6" fill="#FFF"/><rect y="53.3" width="120" height="26.6" fill="#239F40"/><circle cx="60" cy="40" r="10" fill="#F9A52A"/></svg>`;
       return `<img src="https://flagcdn.com/w80/${code}.png" alt="flag" style="width:60px;height:40px;object-fit:cover;border-radius:4px;border:2px solid ${c.border};" />`;
     };
 
-    // Helper to generate full theme entries with optional eyeColor and flagCode support
     function t(bg, bg2, fg, muted, accent, border, type, eyeColor = null, code = null) {
       let r = parseInt(accent.slice(1, 3), 16), g = parseInt(accent.slice(3, 5), 16), b = parseInt(accent.slice(5, 7), 16);
       return { 
@@ -528,7 +570,6 @@
       };
     }
     
-    // Helper exclusively for creating country flag themes derived exactly from flag colors
     const _c = (c1, c2, c3, code) => t(c1, c1, c2, c2, c3, c3, 'country', null, code);
 
     // --- Mega Theme Database ---
@@ -854,12 +895,16 @@
       }
     };
 
-    // Game State
+    const iconGenerators = {
+      lizard: svgLizard, turtle: svgTurtle, dog: svgDog, cat: svgCat,
+      bird: svgBird, fish: svgFish, snake: svgSnake, mammal: svgMammal, country: svgCountry
+    };
+
     var gameState = {
       team1: { score: 0, fouls: 0, timeouts: 3, penalties: [0,0,0,0,0] },
       team2: { score: 0, fouls: 0, timeouts: 3, penalties: [0,0,0,0,0] },
       period: 1,
-      gameFormat: 'quarters', // quarters, halves, periods, innings
+      gameFormat: 'quarters',
       gameTimerSeconds: 720,
       shotClockSeconds: 24,
       shotClockActive: true,
@@ -868,7 +913,6 @@
       timerInterval: null
     };
 
-    // DOM References
     var team1ScoreEl = document.getElementById('team1-score');
     var team2ScoreEl = document.getElementById('team2-score');
     var team1FoulsEl = document.getElementById('team1-fouls');
@@ -886,9 +930,28 @@
     var periodContainer = document.getElementById('period-container');
     var shotclockToggleBtn = document.getElementById('shotclock-toggle');
 
-    // Theme Logic
+    // Advanced Luminance Engine
+    function getLuminance(hex) {
+      if (!hex) return 0;
+      if (hex.length === 4) {
+         hex = '#' + hex[1]+hex[1] + hex[2]+hex[2] + hex[3]+hex[3];
+      }
+      var r = parseInt(hex.substr(1, 2), 16);
+      var g = parseInt(hex.substr(3, 2), 16);
+      var b = parseInt(hex.substr(5, 2), 16);
+      return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    }
+
+    // Forcefully blocks any white or extremely bright color from being used inside the white cards
+    function makeSafe(hex) {
+      if (!hex) return '#D1D5DB';
+      if (getLuminance(hex) > 0.85) return '#D1D5DB'; // Tailwind gray-300
+      return hex;
+    }
+
     function populateBreeds() {
       var category = categorySelect.value;
+      if(!themes[category]) return;
       var breeds = Object.keys(themes[category]);
       breedSelect.innerHTML = '';
       breeds.forEach(function(breed) {
@@ -897,6 +960,7 @@
         option.textContent = breed;
         breedSelect.appendChild(option);
       });
+      breedSelect.value = breeds[0];
       applyTheme();
     }
 
@@ -904,11 +968,16 @@
       var category = categorySelect.value;
       var breed = breedSelect.value;
       
+      if (!breed && breedSelect.options.length > 0) {
+        breed = breedSelect.options[0].value;
+      }
+      
       if (!themes[category] || !themes[category][breed]) return;
       
       var themeData = themes[category][breed];
       var colors = themeData.colors;
       
+      // Standard Variables for anything OUTSIDE the scorecards (Keeps aesthetic exactly the same)
       document.documentElement.style.setProperty('--bg', colors.bg);
       document.documentElement.style.setProperty('--bg-secondary', colors.bg2);
       document.documentElement.style.setProperty('--fg', colors.fg);
@@ -916,6 +985,25 @@
       document.documentElement.style.setProperty('--accent', colors.accent);
       document.documentElement.style.setProperty('--border', colors.border);
       document.documentElement.style.setProperty('--glow', colors.glow);
+
+      // Safe variants explicitly isolated strictly for inside the #FFFFFF cards
+      var safeAccent = makeSafe(colors.accent);
+      var safeBgSecondary = makeSafe(colors.bg2);
+      var safeBorder = makeSafe(colors.border);
+      
+      // Text resting directly on the white background must be dark enough to read
+      var safeMuted = (getLuminance(colors.muted) > 0.6) ? '#4B5563' : colors.muted; 
+      var safeText = (getLuminance(colors.fg) > 0.6) ? '#000000' : colors.fg;
+
+      document.documentElement.style.setProperty('--card-accent', safeAccent);
+      document.documentElement.style.setProperty('--card-bg-secondary', safeBgSecondary);
+      document.documentElement.style.setProperty('--card-border', safeBorder);
+      document.documentElement.style.setProperty('--card-muted', safeMuted);
+      document.documentElement.style.setProperty('--card-text', safeText);
+
+      // Dynamic text colors calculated from the protected sub-panel colors
+      document.documentElement.style.setProperty('--inner-text', getLuminance(safeBgSecondary) > 0.6 ? '#000000' : '#FFFFFF');
+      document.documentElement.style.setProperty('--accent-text', getLuminance(safeAccent) > 0.6 ? '#000000' : '#FFFFFF');
       
       var generator = iconGenerators[themeData.type] || iconGenerators.mammal;
       iconContainer.innerHTML = generator(colors, themeData.code);
@@ -925,7 +1013,6 @@
     categorySelect.addEventListener('change', populateBreeds);
     breedSelect.addEventListener('change', applyTheme);
 
-    // Timer Functions
     function formatTime(seconds) {
       var mins = Math.floor(seconds / 60);
       var secs = seconds % 60;
@@ -974,7 +1061,6 @@
     document.getElementById('timer-start').addEventListener('click', startTimer);
     document.getElementById('timer-stop').addEventListener('click', stopTimer);
     
-    // Custom Time Set
     document.getElementById('timer-set').addEventListener('click', function() {
       var input = prompt("Enter custom time in MM:SS format (e.g., 10:00 or 15:30):", formatTime(gameState.gameTimerSeconds));
       if (input) {
@@ -996,7 +1082,6 @@
       }
     });
 
-    // Shot Clock Controls
     document.getElementById('shotclock-reset').addEventListener('click', function() {
       if(gameState.shotClockActive) {
         gameState.shotClockSeconds = 24;
@@ -1023,7 +1108,6 @@
       updateShotClockDisplay();
     });
 
-    // Period Controls
     function renderPeriods() {
       periodContainer.innerHTML = '';
       let formatArr = [];
@@ -1072,7 +1156,6 @@
       if (gameState.period < limit) { gameState.period++; updatePeriodDisplay(); }
     });
 
-    // Penalty Shootout Controls
     function renderPenalties() {
       [1, 2].forEach(team => {
         let container = document.getElementById('team' + team + '-penalties');
@@ -1109,21 +1192,18 @@
       if(gameState.penaltiesActive) renderPenalties();
     });
 
-    // Score Functions
     function changeScore(team, delta) {
       var key = 'team' + team;
       gameState[key].score = Math.max(0, gameState[key].score + delta);
       document.getElementById(key + '-score').textContent = gameState[key].score;
     }
 
-    // Foul Functions
     function changeFouls(team, delta) {
       var key = 'team' + team;
       gameState[key].fouls = Math.max(0, gameState[key].fouls + delta);
       document.getElementById(key + '-fouls').textContent = gameState[key].fouls;
     }
 
-    // Timeout Functions
     function updateTimeoutDots(team) {
       var key = 'team' + team;
       var dots = document.getElementById(key + '-timeouts-dots').children;
@@ -1140,7 +1220,6 @@
       updateTimeoutDots(team);
     }
 
-    // Clear Functions
     function clearTeamStat(team, stat) {
       var key = 'team' + team;
       if (stat === 'score') { gameState[key].score = 0; document.getElementById(key + '-score').textContent = '0'; }
@@ -1168,7 +1247,6 @@
     function clearTimer() { stopTimer(); gameState.gameTimerSeconds = 720; updateTimerDisplay(); }
     function clearShotClock() { gameState.shotClockSeconds = 24; updateShotClockDisplay(); }
 
-    // Master Reset
     function showResetModal() { resetModal.classList.add('active'); }
     function closeResetModal() { resetModal.classList.remove('active'); }
 
@@ -1192,7 +1270,6 @@
 
     resetModal.addEventListener('click', function(e) { if (e.target === resetModal) closeResetModal(); });
 
-    // Initialize
     populateBreeds();
     updateTimerDisplay();
     updateShotClockDisplay();
