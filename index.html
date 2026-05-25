@@ -307,6 +307,13 @@
               <option value="bird">Birds</option>
               <option value="fish">Fish & Aquatic</option>
               <option value="snake">Snakes</option>
+              <option value="frog">Frogs</option>
+              <option value="toad">Toads</option>
+              <option value="fox">Foxes</option>
+              <option value="goat">Goats</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="extinct">Extinct</option>
+              <option value="elephant">Elephants</option>
               <option value="more">More Animals</option>
               <option value="country">Countries</option>
             </select>
@@ -541,7 +548,9 @@
         const parts = window.location.hash.split('_');
         if (parts.length > 1) {
           const num = parseInt(parts[1], 10);
-          if (!isNaN(num)) updateMultiGameButtons(num, document);
+          if (!isNaN(num)) {
+             updateMultiGameButtons(num, document);
+          }
         }
       }
     } catch (e) {}
@@ -555,7 +564,9 @@
     const svgFish = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="30" ry="20" fill="${c.accent}"/><polygon points="32,45 15,30 15,60" fill="${c.muted}"/><polygon points="60,25 50,10 70,25" fill="${c.border}"/><circle cx="80" cy="40" r="3" fill="${c.fg}"/></svg>`;
     const svgSnake = (c) => `<svg viewBox="0 0 120 80"><path d="M20 50 Q40 20 60 50 T100 50" stroke="${c.accent}" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M20 50 Q40 20 60 50 T100 50" stroke="${c.border}" stroke-width="4" fill="none" stroke-dasharray="6,4"/><circle cx="95" cy="48" r="3" fill="${c.fg}"/></svg>`;
     const svgMammal = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="35" ry="22" fill="${c.accent}"/><circle cx="90" cy="40" r="18" fill="${c.bg2}"/><circle cx="82" cy="28" r="6" fill="${c.muted}"/><circle cx="98" cy="28" r="6" fill="${c.muted}"/><circle cx="85" cy="38" r="3" fill="${c.fg}"/><circle cx="95" cy="38" r="3" fill="${c.fg}"/><ellipse cx="90" cy="45" rx="4" ry="2" fill="${c.fg}"/></svg>`;
-    
+    const svgFrog = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="35" ry="25" fill="${c.accent}"/><circle cx="45" cy="30" r="12" fill="${c.bg2}"/><circle cx="75" cy="30" r="12" fill="${c.bg2}"/><circle cx="45" cy="28" r="4" fill="${c.fg}"/><circle cx="75" cy="28" r="4" fill="${c.fg}"/><path d="M 45 60 Q 60 70 75 60" stroke="${c.border}" stroke-width="4" stroke-linecap="round" fill="none"/></svg>`;
+    const svgElephant = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="25" ry="25" fill="${c.accent}"/><ellipse cx="25" cy="45" rx="15" ry="25" fill="${c.muted}"/><ellipse cx="95" cy="45" rx="15" ry="25" fill="${c.muted}"/><path d="M 60 50 Q 60 80 50 75" stroke="${c.accent}" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="50" cy="40" r="3" fill="${c.fg}"/><circle cx="70" cy="40" r="3" fill="${c.fg}"/></svg>`;
+
     const svgCountry = (c, code) => {
       if (code === 'trnc') return `<svg viewBox="0 0 120 80"><rect width="120" height="80" fill="#FFF"/><rect y="10" width="120" height="10" fill="#E30A17"/><rect y="60" width="120" height="10" fill="#E30A17"/><path d="M 55 40 A 10 10 0 1 1 55 25 A 12 12 0 1 0 55 40 Z M 62 32 L 67 38 L 65 30 L 72 27 L 64 27 Z" fill="#E30A17"/></svg>`;
       if (code === 'kurd') return `<svg viewBox="0 0 120 80"><rect width="120" height="26.6" fill="#EB2323"/><rect y="26.6" width="120" height="26.6" fill="#FFF"/><rect y="53.3" width="120" height="26.6" fill="#239F40"/><circle cx="60" cy="40" r="10" fill="#F9A52A"/></svg>`;
@@ -613,7 +624,11 @@
         'Wild Axolotl': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'fish'),
         'Albino Axolotl': t('#FCE4EC', '#F8BBD0', '#880E4F', '#F06292', '#EC407A', '#F48FB1', 'fish'),
         'Jellyfish': t('#0F172A', '#1E293B', '#F8FAFC', '#94A3B8', '#38BDF8', '#334155', 'fish'),
-        'Dolphin': t('#E1F5FE', '#B3E5FC', '#01579B', '#0288D1', '#03A9F4', '#81D4FA', 'fish')
+        'Dolphin': t('#E1F5FE', '#B3E5FC', '#01579B', '#0288D1', '#03A9F4', '#81D4FA', 'fish'),
+        'Octopus': t('#F3E5F5', '#E1BEE7', '#4A148C', '#8E24AA', '#9C27B0', '#BA68C8', 'fish'),
+        'Angler Fish': t('#212121', '#424242', '#FAFAFA', '#FFEB3B', '#FFC107', '#757575', 'fish'),
+        'Stingray': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'fish'),
+        'Narwhal': t('#E1F5FE', '#B3E5FC', '#01579B', '#4DD0E1', '#00BCD4', '#81D4FA', 'fish')
       },
       snake: {
         'Red-Tail Boa': t('#EFEBE9', '#D7CCC8', '#3E2723', '#C62828', '#8D6E63', '#BCAAA4', 'snake'),
@@ -625,6 +640,29 @@
         'King Snake': t('#FAFAFA', '#F5F5F5', '#212121', '#F57F17', '#D32F2F', '#E0E0E0', 'snake'),
         'Milk Snake': t('#FFEBEE', '#FFCDD2', '#212121', '#F44336', '#E53935', '#FF8A80', 'snake'),
         'Corn Snake': t('#FFF3E0', '#FFE0B2', '#BF360C', '#FF5722', '#FF7043', '#FFAB91', 'snake')
+      },
+      frog: {
+        'Poison Dart Frog': t('#E8F5E9', '#C8E6C9', '#000000', '#1B5E20', '#4CAF50', '#81C784', 'frog'),
+        'Milk Frog': t('#E0F2F1', '#B2DFDB', '#004D40', '#00796B', '#8D6E63', '#80CBC4', 'frog'),
+        'Pac-Man Frog': t('#F1F8E9', '#DCEDC8', '#33691E', '#689F38', '#8BC34A', '#AED581', 'frog'),
+        'Rain Frog': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'frog'),
+        'Bull Frog': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#388E3C', '#4CAF50', '#81C784', 'frog'),
+        'Leopard Frog': t('#F1F8E9', '#DCEDC8', '#1B5E20', '#3E2723', '#43A047', '#81C784', 'frog'),
+        'Tree Frog': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#FF9800', '#4CAF50', '#81C784', 'frog'),
+        'Mossy Frog': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#004D40', '#388E3C', '#81C784', 'frog'),
+        'Pixie Frog': t('#F1F8E9', '#DCEDC8', '#33691E', '#5D4037', '#7CB342', '#AED581', 'frog'),
+        'Budget’s Frog': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'frog')
+      },
+      toad: {
+        'Cane Toad': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#6D4C41', '#BCAAA4', 'frog'),
+        'Colorado River Toad': t('#F5F5F5', '#E0E0E0', '#212121', '#424242', '#616161', '#9E9E9E', 'frog'),
+        'Fire Bellied Toad': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#D32F2F', '#4CAF50', '#81C784', 'frog'),
+        'Asian Common Toad': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'frog'),
+        'American Toad': t('#FFF8E1', '#FFECB3', '#4E342E', '#6D4C41', '#8D6E63', '#FFE082', 'frog'),
+        'Haterjack Toad': t('#F1F8E9', '#DCEDC8', '#33691E', '#F57F17', '#7CB342', '#AED581', 'frog'),
+        'Wyoming Toad': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'frog'),
+        'Surinan Toad': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#5D4037', '#BCAAA4', 'frog'),
+        'Harlequin Toad': t('#212121', '#424242', '#FAFAFA', '#FFEB3B', '#D32F2F', '#757575', 'frog')
       },
       bird: {
         'Parrot': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#4CAF50', '#FF5722', '#A5D6A7', 'bird'),
@@ -638,7 +676,9 @@
         'Puffin': t('#FAFAFA', '#F5F5F5', '#212121', '#FF9800', '#424242', '#E0E0E0', 'bird'),
         'Kingfisher': t('#E1F5FE', '#B3E5FC', '#01579B', '#FF9800', '#03A9F4', '#81D4FA', 'bird'),
         'Blackbird': t('#FAFAFA', '#F5F5F5', '#000000', '#FFC107', '#212121', '#E0E0E0', 'bird'),
-        'Sparrow': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'bird')
+        'Sparrow': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'bird'),
+        'Bald Eagle': t('#EFEBE9', '#D7CCC8', '#212121', '#FFC107', '#4E342E', '#BCAAA4', 'bird'),
+        'Eagle': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'bird')
       },
       dog: {
         'Golden Retriever': t('#FFF8E1', '#FFECB3', '#5D4037', '#8D6E63', '#C89B4A', '#FFE082', 'dog'),
@@ -665,6 +705,25 @@
         'Saint Bernard': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'dog'),
         'Tibetan Mastiff': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'dog')
       },
+      fox: {
+        'Red Fox': t('#FFF3E0', '#FFE0B2', '#BF360C', '#212121', '#FF5722', '#FFCC80', 'dog'),
+        'Fennec Fox': t('#FFF8E1', '#FFECB3', '#4E342E', '#8D6E63', '#FFCA28', '#FFE082', 'dog'),
+        'Arctic Fox': t('#FFFFFF', '#F5F5F5', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'dog')
+      },
+      goat: {
+        'Alpine': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'mammal'),
+        'LaMancha': t('#FAFAFA', '#F5F5F5', '#212121', '#757575', '#9E9E9E', '#E0E0E0', 'mammal'),
+        'Nubian': t('#FFF8E1', '#FFECB3', '#4E342E', '#6D4C41', '#FFCA28', '#FFE082', 'mammal'),
+        'Saanen': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'mammal'),
+        'Boer': t('#FFFFFF', '#F5F5F5', '#3E2723', '#8B4513', '#A0522D', '#D2B48C', 'mammal'),
+        'Spanish': t('#EFEBE9', '#D7CCC8', '#212121', '#424242', '#5D4037', '#BCAAA4', 'mammal'),
+        'Kiko': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#616161', '#9E9E9E', 'mammal'),
+        'Tennessee Fainting': t('#FAFAFA', '#F5F5F5', '#000000', '#212121', '#424242', '#E0E0E0', 'mammal'),
+        'Pygmy': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'mammal'),
+        'Nigerian Dwarf': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'mammal'),
+        'Angora': t('#FFFFFF', '#F5F5F5', '#424242', '#9E9E9E', '#BDBDBD', '#9E9E9E', 'mammal'),
+        'Mountain Goat': t('#FAFAFA', '#F5F5F5', '#212121', '#757575', '#E0E0E0', '#9E9E9E', 'mammal')
+      },
       cat: {
         'Siamese': t('#F5E6D3', '#E8D4BE', '#4A3B2A', '#7D6B5D', '#3E2723', '#CDB189', 'cat'),
         'Persian': t('#F8F9FA', '#E9ECEF', '#343A40', '#868E96', '#BDC3C7', '#DEE2E6', 'cat'),
@@ -683,6 +742,29 @@
         'Sphynx': t('#FCE4EC', '#F8BBD0', '#880E4F', '#F06292', '#EC407A', '#F48FB1', 'cat'),
         'Abyssinian': t('#FFF3E0', '#FFE0B2', '#3E2723', '#795548', '#FF9800', '#FFCC80', 'cat')
       },
+      fantasy: {
+        'Dragon': t('#FFEBEE', '#FFCDD2', '#4A1A1A', '#B71C1C', '#D32F2F', '#EF9A9A', 'lizard'),
+        'Hydra': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#4A148C', '#4CAF50', '#81C784', 'lizard'),
+        'Griffin': t('#FFF8E1', '#FFECB3', '#3E2723', '#8D6E63', '#FFCA28', '#FFE082', 'bird'),
+        'Unicorn': t('#FCE4EC', '#F8BBD0', '#880E4F', '#03A9F4', '#F06292', '#F48FB1', 'mammal'),
+        'Phoenix': t('#FFF3E0', '#FFE0B2', '#BF360C', '#FF5722', '#FF9800', '#FFCC80', 'bird')
+      },
+      extinct: {
+        'Wooly Mammoth': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#6D4C41', '#BCAAA4', 'mammal'),
+        'Sabertooth Tiger': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'cat'),
+        'Dodo': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'bird'),
+        'Golden Toad': t('#FFF8E1', '#FFECB3', '#BF360C', '#E65100', '#FFC107', '#FFE082', 'turtle'),
+        'Passenger Pigeon': t('#E8EAF6', '#C5CAE9', '#1A237E', '#5C6BC0', '#3F51B5', '#9FA8DA', 'bird'),
+        'Tyrannosaurus Rex': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'lizard'),
+        'Quetzalcoatlus': t('#FAFAFA', '#F5F5F5', '#212121', '#5D4037', '#9E9E9E', '#E0E0E0', 'bird'),
+        'Plesiosaur': t('#E0F7FA', '#B2EBF2', '#004D40', '#00897B', '#00838F', '#80DEEA', 'turtle')
+      },
+      elephant: {
+        'African Elephant': t('#EFEBE9', '#D7CCC8', '#212121', '#424242', '#5D4037', '#BCAAA4', 'elephant'),
+        'Asian Elephant': t('#FAFAFA', '#F5F5F5', '#212121', '#616161', '#9E9E9E', '#E0E0E0', 'elephant'),
+        'Indian Elephant': t('#FFF8E1', '#FFECB3', '#3E2723', '#5D4037', '#8D6E63', '#FFE082', 'elephant'),
+        'Borneo Pygmy Elephant': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'elephant')
+      },
       more: {
         'Panda': t('#FFFFFF', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'mammal'),
         'Raccoon': t('#ECEFF1', '#CFD8DC', '#212121', '#263238', '#546E7A', '#B0BEC5', 'mammal'),
@@ -692,7 +774,8 @@
         'Zebra': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#212121', '#9E9E9E', 'mammal'),
         'Badger': t('#FAFAFA', '#F5F5F5', '#212121', '#424242', '#616161', '#E0E0E0', 'mammal'),
         'Snowy Leopard': t('#ECEFF1', '#CFD8DC', '#212121', '#546E7A', '#78909C', '#B0BEC5', 'mammal'),
-        'Leopard': t('#FFF8E1', '#FFECB3', '#212121', '#3E2723', '#FFCA28', '#FFE082', 'mammal')
+        'Leopard': t('#FFF8E1', '#FFECB3', '#212121', '#3E2723', '#FFCA28', '#FFE082', 'mammal'),
+        'Hyena': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#5D4037', '#BCAAA4', 'cat')
       },
       country: {
         'Afghanistan': _c('#FFFFFF', '#000000', '#E3000F', 'af'),
@@ -897,7 +980,8 @@
 
     const iconGenerators = {
       lizard: svgLizard, turtle: svgTurtle, dog: svgDog, cat: svgCat,
-      bird: svgBird, fish: svgFish, snake: svgSnake, mammal: svgMammal, country: svgCountry
+      bird: svgBird, fish: svgFish, snake: svgSnake, mammal: svgMammal, country: svgCountry,
+      frog: svgFrog, elephant: svgElephant
     };
 
     var gameState = {
@@ -945,7 +1029,7 @@
     // Forcefully blocks any white or extremely bright color from being used inside the white cards
     function makeSafe(hex) {
       if (!hex) return '#D1D5DB';
-      if (getLuminance(hex) > 0.85) return '#D1D5DB'; // Tailwind gray-300
+      if (getLuminance(hex) > 0.85) return '#D1D5DB'; 
       return hex;
     }
 
@@ -991,7 +1075,6 @@
       var safeBgSecondary = makeSafe(colors.bg2);
       var safeBorder = makeSafe(colors.border);
       
-      // Text resting directly on the white background must be dark enough to read
       var safeMuted = (getLuminance(colors.muted) > 0.6) ? '#4B5563' : colors.muted; 
       var safeText = (getLuminance(colors.fg) > 0.6) ? '#000000' : colors.fg;
 
