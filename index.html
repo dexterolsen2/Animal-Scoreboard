@@ -201,7 +201,7 @@
     /* Strict Black Text Rule for Options */
     #category-select, #breed-select,
     #category-select option, #breed-select option,
-    #game-format option {
+    #game-format option, optgroup {
       color: #000000 !important;
       background-color: #FFFFFF !important;
     }
@@ -299,23 +299,53 @@
           
           <div class="flex gap-2 flex-wrap items-center">
             <select id="category-select" aria-label="Select Animal Category">
-              <option value="lizard">Lizards</option>
-              <option value="turtle">Turtles</option>
-              <option value="tortoise">Tortoises</option>
-              <option value="dog">Dogs</option>
-              <option value="cat">Cats</option>
-              <option value="bird">Birds</option>
-              <option value="fish">Fish & Aquatic</option>
-              <option value="snake">Snakes</option>
-              <option value="frog">Frogs</option>
-              <option value="toad">Toads</option>
-              <option value="fox">Foxes</option>
-              <option value="goat">Goats</option>
-              <option value="fantasy">Fantasy</option>
-              <option value="extinct">Extinct</option>
-              <option value="elephant">Elephants</option>
-              <option value="more">More Animals</option>
-              <option value="country">Countries</option>
+              <optgroup label="Reptiles">
+                <option value="lizard">Lizards</option>
+                <option value="snake">Snakes</option>
+                <option value="turtle">Turtles</option>
+                <option value="tortoise">Tortoises</option>
+              </optgroup>
+              <optgroup label="Common Pets">
+                <option value="dog">Dogs</option>
+                <option value="cat">Cats</option>
+              </optgroup>
+              <optgroup label="Aquatic">
+                <option value="fish">Fish</option>
+                <option value="shark">Sharks</option>
+                <option value="marine_mammal">Marine Mammals</option>
+                <option value="aquatic_invertebrate">Invertebrates</option>
+                <option value="aquatic_amphibian">Aquatic Amphibians</option>
+              </optgroup>
+              <optgroup label="Amphibians">
+                <option value="frog">Frogs</option>
+                <option value="toad">Toads</option>
+              </optgroup>
+              <optgroup label="Farm Animals">
+                <option value="cow">Cows</option>
+                <option value="pig">Pigs</option>
+                <option value="sheep">Sheep</option>
+                <option value="goat">Goats</option>
+              </optgroup>
+              <optgroup label="Insects">
+                <option value="bee">Bees, Wasps & Hornets</option>
+                <option value="beetle">Beetles</option>
+                <option value="ant">Ants</option>
+              </optgroup>
+              <optgroup label="Birds">
+                <option value="bird">Birds</option>
+              </optgroup>
+              <optgroup label="Fictional">
+                <option value="fantasy">Fantasy</option>
+                <option value="extinct">Extinct</option>
+              </optgroup>
+              <optgroup label="Wild Animals">
+                <option value="fox">Foxes</option>
+                <option value="elephant">Elephants</option>
+                <option value="more">More Wild Animals</option>
+              </optgroup>
+              <optgroup label="Misc">
+                <option value="country">Countries</option>
+              </optgroup>
             </select>
             <select id="breed-select" aria-label="Select Breed">
               </select>
@@ -566,6 +596,16 @@
     const svgMammal = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="35" ry="22" fill="${c.accent}"/><circle cx="90" cy="40" r="18" fill="${c.bg2}"/><circle cx="82" cy="28" r="6" fill="${c.muted}"/><circle cx="98" cy="28" r="6" fill="${c.muted}"/><circle cx="85" cy="38" r="3" fill="${c.fg}"/><circle cx="95" cy="38" r="3" fill="${c.fg}"/><ellipse cx="90" cy="45" rx="4" ry="2" fill="${c.fg}"/></svg>`;
     const svgFrog = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="35" ry="25" fill="${c.accent}"/><circle cx="45" cy="30" r="12" fill="${c.bg2}"/><circle cx="75" cy="30" r="12" fill="${c.bg2}"/><circle cx="45" cy="28" r="4" fill="${c.fg}"/><circle cx="75" cy="28" r="4" fill="${c.fg}"/><path d="M 45 60 Q 60 70 75 60" stroke="${c.border}" stroke-width="4" stroke-linecap="round" fill="none"/></svg>`;
     const svgElephant = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="25" ry="25" fill="${c.accent}"/><ellipse cx="25" cy="45" rx="15" ry="25" fill="${c.muted}"/><ellipse cx="95" cy="45" rx="15" ry="25" fill="${c.muted}"/><path d="M 60 50 Q 60 80 50 75" stroke="${c.accent}" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="50" cy="40" r="3" fill="${c.fg}"/><circle cx="70" cy="40" r="3" fill="${c.fg}"/></svg>`;
+    const svgInsect = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="40" rx="15" ry="30" fill="${c.accent}"/><ellipse cx="60" cy="20" rx="10" ry="10" fill="${c.bg2}"/><path d="M 45 40 L 30 30 M 75 40 L 90 30 M 45 50 L 30 60 M 75 50 L 90 60 M 45 60 L 35 75 M 75 60 L 85 75" stroke="${c.border}" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="55" cy="18" r="2" fill="${c.fg}"/><circle cx="65" cy="18" r="2" fill="${c.fg}"/></svg>`;
+
+    // --- New Unique Icons for Subcategories ---
+    const svgPig = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="30" ry="22" fill="${c.accent}"/><ellipse cx="85" cy="45" rx="12" ry="14" fill="${c.bg2}"/><circle cx="82" cy="45" r="2" fill="${c.fg}"/><circle cx="88" cy="45" r="2" fill="${c.fg}"/><path d="M 30 50 C 20 30 10 40 20 20" stroke="${c.border}" stroke-width="2" fill="none"/><polygon points="75,35 70,20 85,30" fill="${c.muted}"/><polygon points="95,35 100,20 90,30" fill="${c.muted}"/></svg>`;
+    const svgSheep = (c) => `<svg viewBox="0 0 120 80"><circle cx="45" cy="45" r="15" fill="${c.accent}"/><circle cx="70" cy="45" r="15" fill="${c.accent}"/><circle cx="58" cy="32" r="15" fill="${c.accent}"/><circle cx="58" cy="55" r="15" fill="${c.accent}"/><ellipse cx="90" cy="45" rx="12" ry="10" fill="${c.bg2}"/><circle cx="85" cy="42" r="2" fill="${c.fg}"/><circle cx="95" cy="42" r="2" fill="${c.fg}"/></svg>`;
+    const svgCow = (c) => `<svg viewBox="0 0 120 80"><rect x="35" y="30" width="45" height="30" rx="8" fill="${c.accent}"/><rect x="45" y="35" width="10" height="10" fill="${c.muted}"/><rect x="65" y="45" width="10" height="10" fill="${c.muted}"/><ellipse cx="90" cy="40" rx="15" ry="12" fill="${c.bg2}"/><path d="M 85 35 Q 80 20 75 25" stroke="${c.border}" stroke-width="3" fill="none"/><path d="M 95 35 Q 100 20 105 25" stroke="${c.border}" stroke-width="3" fill="none"/><circle cx="85" cy="38" r="2" fill="${c.fg}"/><circle cx="95" cy="38" r="2" fill="${c.fg}"/></svg>`;
+    const svgShark = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="35" ry="15" fill="${c.accent}"/><polygon points="55,32 65,10 75,32" fill="${c.accent}"/><polygon points="25,45 10,35 10,55" fill="${c.muted}"/><circle cx="85" cy="42" r="2" fill="${c.fg}"/></svg>`;
+    const svgBee = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="20" ry="12" fill="${c.accent}"/><path d="M 48 33 L 48 57 M 60 33 L 60 57 M 72 33 L 72 57" stroke="${c.border}" stroke-width="4"/><ellipse cx="65" cy="25" rx="8" ry="12" fill="${c.bg2}" opacity="0.8"/><ellipse cx="55" cy="25" rx="8" ry="12" fill="${c.bg2}" opacity="0.8"/><circle cx="75" cy="42" r="2" fill="${c.fg}"/><polygon points="40,45 30,42 40,48" fill="${c.fg}"/></svg>`;
+    const svgBeetle = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="20" ry="25" fill="${c.accent}"/><path d="M 60 20 L 60 70" stroke="${c.border}" stroke-width="2"/><ellipse cx="60" cy="15" rx="10" ry="8" fill="${c.bg2}"/><path d="M 55 10 C 50 0 40 5 45 15" stroke="${c.fg}" stroke-width="3" fill="none"/><path d="M 65 10 C 70 0 80 5 75 15" stroke="${c.fg}" stroke-width="3" fill="none"/></svg>`;
+    const svgAnt = (c) => `<svg viewBox="0 0 120 80"><circle cx="35" cy="45" r="10" fill="${c.accent}"/><circle cx="60" cy="45" r="8" fill="${c.accent}"/><circle cx="85" cy="45" r="12" fill="${c.accent}"/><path d="M 60 45 L 60 25 M 60 45 L 60 65 M 35 45 L 25 30 M 35 45 L 25 60 M 85 45 L 95 30 M 85 45 L 95 60" stroke="${c.border}" stroke-width="2"/><path d="M 95 40 C 100 30 110 30 105 45" stroke="${c.fg}" stroke-width="2" fill="none"/></svg>`;
 
     const svgCountry = (c, code) => {
       if (code === 'trnc') return `<svg viewBox="0 0 120 80"><rect width="120" height="80" fill="#FFF"/><rect y="10" width="120" height="10" fill="#E30A17"/><rect y="60" width="120" height="10" fill="#E30A17"/><path d="M 55 40 A 10 10 0 1 1 55 25 A 12 12 0 1 0 55 40 Z M 62 32 L 67 38 L 65 30 L 72 27 L 64 27 Z" fill="#E30A17"/></svg>`;
@@ -583,8 +623,9 @@
     
     const _c = (c1, c2, c3, code) => t(c1, c1, c2, c2, c3, c3, 'country', null, code);
 
-    // --- Mega Theme Database ---
+    // --- Mega Theme Database (Hierarchical Grouping) ---
     const themes = {
+      // Reptiles
       lizard: {
         'Standard Bearded Dragon': t('#FDF6E3', '#F5E6C8', '#2D1B0E', '#8B7355', '#E07B39', '#D4A574', 'lizard'),
         'Red Dragon': t('#FFEBEE', '#FFCDD2', '#4A1A1A', '#8B4545', '#D32F2F', '#EF9A9A', 'lizard'),
@@ -617,19 +658,6 @@
         'Hermann Tortoise': t('#F1F8E9', '#DCEDC8', '#33691E', '#558B2F', '#7CB342', '#AED581', 'turtle'),
         'Egyptian Tortoise': t('#FFFDE7', '#FFF9C4', '#3E2723', '#8B6B22', '#A87C00', '#FFF59D', 'turtle')
       },
-      fish: {
-        'Clownfish': t('#FFF3E0', '#FFE0B2', '#E65100', '#FFFFFF', '#FF9800', '#FFCC80', 'fish'),
-        'White Shark': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'fish'),
-        'Rainbowfish': t('#F3E5F5', '#E1BEE7', '#4A148C', '#00BCD4', '#E91E63', '#BA68C8', 'fish'),
-        'Wild Axolotl': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'fish'),
-        'Albino Axolotl': t('#FCE4EC', '#F8BBD0', '#880E4F', '#F06292', '#EC407A', '#F48FB1', 'fish'),
-        'Jellyfish': t('#0F172A', '#1E293B', '#F8FAFC', '#94A3B8', '#38BDF8', '#334155', 'fish'),
-        'Dolphin': t('#E1F5FE', '#B3E5FC', '#01579B', '#0288D1', '#03A9F4', '#81D4FA', 'fish'),
-        'Octopus': t('#F3E5F5', '#E1BEE7', '#4A148C', '#8E24AA', '#9C27B0', '#BA68C8', 'fish'),
-        'Angler Fish': t('#212121', '#424242', '#FAFAFA', '#FFEB3B', '#FFC107', '#757575', 'fish'),
-        'Stingray': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'fish'),
-        'Narwhal': t('#E1F5FE', '#B3E5FC', '#01579B', '#4DD0E1', '#00BCD4', '#81D4FA', 'fish')
-      },
       snake: {
         'Red-Tail Boa': t('#EFEBE9', '#D7CCC8', '#3E2723', '#C62828', '#8D6E63', '#BCAAA4', 'snake'),
         'Kenyan Sand Boa': t('#FFF8E1', '#FFECB3', '#4E342E', '#FFB300', '#FFCA28', '#FFE082', 'snake'),
@@ -641,6 +669,40 @@
         'Milk Snake': t('#FFEBEE', '#FFCDD2', '#212121', '#F44336', '#E53935', '#FF8A80', 'snake'),
         'Corn Snake': t('#FFF3E0', '#FFE0B2', '#BF360C', '#FF5722', '#FF7043', '#FFAB91', 'snake')
       },
+      
+      // Aquatic
+      fish: {
+        'Clownfish': t('#FFF3E0', '#FFE0B2', '#E65100', '#FFFFFF', '#FF9800', '#FFCC80', 'fish'),
+        'Rainbowfish': t('#F3E5F5', '#E1BEE7', '#4A148C', '#00BCD4', '#E91E63', '#BA68C8', 'fish'),
+        'Angler Fish': t('#212121', '#424242', '#FAFAFA', '#FFEB3B', '#FFC107', '#757575', 'fish'),
+        'Stingray': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'fish')
+      },
+      shark: {
+        'Great White Shark': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'shark'),
+        'Whale Shark': t('#0F172A', '#1E293B', '#FFFFFF', '#38BDF8', '#0288D1', '#334155', 'shark'),
+        'Hammerhead Shark': t('#F5F5F5', '#E0E0E0', '#212121', '#757575', '#9E9E9E', '#BDBDBD', 'shark'),
+        'Tiger Shark': t('#ECEFF1', '#CFD8DC', '#263238', '#424242', '#607D8B', '#90A4AE', 'shark'),
+        'Nurse Shark': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'shark'),
+        'Bull Shark': t('#FAFAFA', '#EEEEEE', '#000000', '#616161', '#757575', '#9E9E9E', 'shark'),
+        'Lemon Shark': t('#FFFDE7', '#FFF9C4', '#212121', '#FBC02D', '#FFEE58', '#FFF176', 'shark'),
+        'Mako Shark': t('#E3F2FD', '#BBDEFB', '#0D47A1', '#1976D2', '#2196F3', '#64B5F6', 'shark'),
+        'Blue Shark': t('#E8EAF6', '#C5CAE9', '#1A237E', '#303F9F', '#3F51B5', '#7986CB', 'shark'),
+        'Goblin Shark': t('#FCE4EC', '#F8BBD0', '#880E4F', '#C2185B', '#F06292', '#F48FB1', 'shark')
+      },
+      marine_mammal: {
+        'Dolphin': t('#E1F5FE', '#B3E5FC', '#01579B', '#0288D1', '#03A9F4', '#81D4FA', 'fish'),
+        'Narwhal': t('#E1F5FE', '#B3E5FC', '#01579B', '#4DD0E1', '#00BCD4', '#81D4FA', 'fish')
+      },
+      aquatic_invertebrate: {
+        'Jellyfish': t('#0F172A', '#1E293B', '#F8FAFC', '#94A3B8', '#38BDF8', '#334155', 'fish'),
+        'Octopus': t('#F3E5F5', '#E1BEE7', '#4A148C', '#8E24AA', '#9C27B0', '#BA68C8', 'fish')
+      },
+      aquatic_amphibian: {
+        'Wild Axolotl': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'fish'),
+        'Albino Axolotl': t('#FCE4EC', '#F8BBD0', '#880E4F', '#F06292', '#EC407A', '#F48FB1', 'fish')
+      },
+
+      // Amphibians
       frog: {
         'Poison Dart Frog': t('#E8F5E9', '#C8E6C9', '#000000', '#1B5E20', '#4CAF50', '#81C784', 'frog'),
         'Milk Frog': t('#E0F2F1', '#B2DFDB', '#004D40', '#00796B', '#8D6E63', '#80CBC4', 'frog'),
@@ -664,6 +726,8 @@
         'Surinan Toad': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#5D4037', '#BCAAA4', 'frog'),
         'Harlequin Toad': t('#212121', '#424242', '#FAFAFA', '#FFEB3B', '#D32F2F', '#757575', 'frog')
       },
+
+      // Birds
       bird: {
         'Parrot': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#4CAF50', '#FF5722', '#A5D6A7', 'bird'),
         'Owl': t('#F4F1EA', '#E8E4D9', '#5D4E37', '#8B7D6B', '#D4A574', '#C9C4B8', 'bird'),
@@ -680,6 +744,8 @@
         'Bald Eagle': t('#EFEBE9', '#D7CCC8', '#212121', '#FFC107', '#4E342E', '#BCAAA4', 'bird'),
         'Eagle': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'bird')
       },
+
+      // Common Pets
       dog: {
         'Golden Retriever': t('#FFF8E1', '#FFECB3', '#5D4037', '#8D6E63', '#C89B4A', '#FFE082', 'dog'),
         'Husky': t('#E1ECF2', '#CDE0EA', '#1C3A5F', '#4A7A9E', '#2D5C7A', '#A8C8DC', 'dog'),
@@ -705,25 +771,6 @@
         'Saint Bernard': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'dog'),
         'Tibetan Mastiff': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'dog')
       },
-      fox: {
-        'Red Fox': t('#FFF3E0', '#FFE0B2', '#BF360C', '#212121', '#FF5722', '#FFCC80', 'dog'),
-        'Fennec Fox': t('#FFF8E1', '#FFECB3', '#4E342E', '#8D6E63', '#FFCA28', '#FFE082', 'dog'),
-        'Arctic Fox': t('#FFFFFF', '#F5F5F5', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'dog')
-      },
-      goat: {
-        'Alpine': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'mammal'),
-        'LaMancha': t('#FAFAFA', '#F5F5F5', '#212121', '#757575', '#9E9E9E', '#E0E0E0', 'mammal'),
-        'Nubian': t('#FFF8E1', '#FFECB3', '#4E342E', '#6D4C41', '#FFCA28', '#FFE082', 'mammal'),
-        'Saanen': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'mammal'),
-        'Boer': t('#FFFFFF', '#F5F5F5', '#3E2723', '#8B4513', '#A0522D', '#D2B48C', 'mammal'),
-        'Spanish': t('#EFEBE9', '#D7CCC8', '#212121', '#424242', '#5D4037', '#BCAAA4', 'mammal'),
-        'Kiko': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#616161', '#9E9E9E', 'mammal'),
-        'Tennessee Fainting': t('#FAFAFA', '#F5F5F5', '#000000', '#212121', '#424242', '#E0E0E0', 'mammal'),
-        'Pygmy': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'mammal'),
-        'Nigerian Dwarf': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'mammal'),
-        'Angora': t('#FFFFFF', '#F5F5F5', '#424242', '#9E9E9E', '#BDBDBD', '#9E9E9E', 'mammal'),
-        'Mountain Goat': t('#FAFAFA', '#F5F5F5', '#212121', '#757575', '#E0E0E0', '#9E9E9E', 'mammal')
-      },
       cat: {
         'Siamese': t('#F5E6D3', '#E8D4BE', '#4A3B2A', '#7D6B5D', '#3E2723', '#CDB189', 'cat'),
         'Persian': t('#F8F9FA', '#E9ECEF', '#343A40', '#868E96', '#BDC3C7', '#DEE2E6', 'cat'),
@@ -742,6 +789,90 @@
         'Sphynx': t('#FCE4EC', '#F8BBD0', '#880E4F', '#F06292', '#EC407A', '#F48FB1', 'cat'),
         'Abyssinian': t('#FFF3E0', '#FFE0B2', '#3E2723', '#795548', '#FF9800', '#FFCC80', 'cat')
       },
+
+      // Farm Animals
+      goat: {
+        'Alpine': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#795548', '#BCAAA4', 'mammal'),
+        'LaMancha': t('#FAFAFA', '#F5F5F5', '#212121', '#757575', '#9E9E9E', '#E0E0E0', 'mammal'),
+        'Nubian': t('#FFF8E1', '#FFECB3', '#4E342E', '#6D4C41', '#FFCA28', '#FFE082', 'mammal'),
+        'Saanen': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'mammal'),
+        'Boer': t('#FFFFFF', '#F5F5F5', '#3E2723', '#8B4513', '#A0522D', '#D2B48C', 'mammal'),
+        'Spanish': t('#EFEBE9', '#D7CCC8', '#212121', '#424242', '#5D4037', '#BCAAA4', 'mammal'),
+        'Kiko': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#616161', '#9E9E9E', 'mammal'),
+        'Tennessee Fainting': t('#FAFAFA', '#F5F5F5', '#000000', '#212121', '#424242', '#E0E0E0', 'mammal'),
+        'Pygmy': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'mammal'),
+        'Nigerian Dwarf': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'mammal'),
+        'Angora': t('#FFFFFF', '#F5F5F5', '#424242', '#9E9E9E', '#BDBDBD', '#9E9E9E', 'mammal'),
+        'Mountain Goat': t('#FAFAFA', '#F5F5F5', '#212121', '#757575', '#E0E0E0', '#9E9E9E', 'mammal')
+      },
+      pig: {
+        'Berkshire': t('#FAFAFA', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'pig'),
+        'Chester White': t('#FFFFFF', '#F5F5F5', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'pig'),
+        'Duroc': t('#FFF3E0', '#FFE0B2', '#3E2723', '#8B4513', '#A0522D', '#D2B48C', 'pig'),
+        'Hampshire': t('#FAFAFA', '#F5F5F5', '#000000', '#616161', '#212121', '#E0E0E0', 'pig'),
+        'Landrace': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#F8BBD0', '#9E9E9E', 'pig'),
+        'Poland China': t('#FAFAFA', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'pig'),
+        'Spotted': t('#FFFFFF', '#F5F5F5', '#000000', '#616161', '#212121', '#E0E0E0', 'pig'),
+        'Yorkshire': t('#FCE4EC', '#F8BBD0', '#212121', '#F06292', '#EC407A', '#F48FB1', 'pig')
+      },
+      sheep: {
+        'Merino': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'sheep'),
+        'Suffolk': t('#FFFFFF', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'sheep'),
+        'Hampshire': t('#FAFAFA', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'sheep'),
+        'Columbia': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'sheep'),
+        'Horned Dorset': t('#FFFFFF', '#F5F5F5', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'sheep'),
+        'Shetland': t('#EFEBE9', '#D7CCC8', '#3E2723', '#6D4C41', '#8D6E63', '#BCAAA4', 'sheep'),
+        'Icelandic Sheep': t('#FAFAFA', '#EEEEEE', '#212121', '#757575', '#BDBDBD', '#9E9E9E', 'sheep'),
+        'Jacob': t('#FFFFFF', '#F5F5F5', '#000000', '#616161', '#212121', '#E0E0E0', 'sheep'),
+        'Katahdin': t('#FFF8E1', '#FFECB3', '#3E2723', '#8D6E63', '#FFE082', '#FFD54F', 'sheep'),
+        'East Friesian': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'sheep'),
+        'Black-Nosed Valais': t('#FFFFFF', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'sheep')
+      },
+      cow: {
+        'Black Angus': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#212121', '#9E9E9E', 'cow'),
+        'Charolais': t('#FFFFFF', '#FAFAFA', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'cow'),
+        'Simmental': t('#FFF3E0', '#FFE0B2', '#3E2723', '#8B4513', '#A0522D', '#D2B48C', 'cow'),
+        'Red Angus': t('#FFF3E0', '#FFE0B2', '#3E2723', '#B71C1C', '#D32F2F', '#EF9A9A', 'cow'),
+        'Texas Longhorn': t('#EFEBE9', '#D7CCC8', '#3E2723', '#5D4037', '#8D6E63', '#BCAAA4', 'cow'),
+        'Gelbvieh': t('#FFF8E1', '#FFECB3', '#3E2723', '#F57C00', '#FFB300', '#FFE082', 'cow'),
+        'Holstein': t('#FFFFFF', '#F5F5F5', '#000000', '#616161', '#212121', '#E0E0E0', 'cow'),
+        'Limousin': t('#FFF3E0', '#FFE0B2', '#3E2723', '#D84B2A', '#E65100', '#FFCC80', 'cow'),
+        'Highlands': t('#FFF3E0', '#FFE0B2', '#3E2723', '#8B4513', '#D2691E', '#FFCC80', 'cow')
+      },
+
+      // Insects
+      bee: {
+        'Yellow Jackets': t('#FFFDE7', '#FFF9C4', '#000000', '#212121', '#FFEB3B', '#FBC02D', 'bee'),
+        'Northern Paper Wasps': t('#EFEBE9', '#D7CCC8', '#212121', '#5D4037', '#795548', '#BCAAA4', 'bee'),
+        'Mud Dauber Wasp': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#212121', '#9E9E9E', 'bee'),
+        'Bald-faced Hornet': t('#FFFFFF', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'bee'),
+        'Blue-winged Wasp': t('#E8EAF6', '#C5CAE9', '#1A237E', '#B71C1C', '#3F51B5', '#9FA8DA', 'bee'),
+        'Thread Waisted Wasp': t('#FFEBEE', '#FFCDD2', '#212121', '#D32F2F', '#F44336', '#EF9A9A', 'bee'),
+        'Asian Giant Hornet': t('#FFF3E0', '#FFE0B2', '#000000', '#E65100', '#FF9800', '#FFCC80', 'bee'),
+        'Cow Killer Wasp': t('#FFEBEE', '#FFCDD2', '#000000', '#B71C1C', '#D32F2F', '#EF9A9A', 'bee'),
+        'Spider Wasp': t('#FAFAFA', '#EEEEEE', '#000000', '#1A237E', '#212121', '#9E9E9E', 'bee'),
+        'Cicada Killer Wasp': t('#FFFDE7', '#FFF9C4', '#000000', '#212121', '#FBC02D', '#F9A825', 'bee'),
+        'Bumblebee': t('#FFFDE7', '#FFF9C4', '#000000', '#424242', '#FFEB3B', '#FBC02D', 'bee'),
+        'Carpenter Bee': t('#FAFAFA', '#EEEEEE', '#000000', '#212121', '#424242', '#9E9E9E', 'bee'),
+        'Western Honey Bee': t('#FFF8E1', '#FFECB3', '#3E2723', '#8D6E63', '#FFCA28', '#FFE082', 'bee')
+      },
+      beetle: {
+        'Ladybugs': t('#FFEBEE', '#FFCDD2', '#000000', '#212121', '#F44336', '#EF9A9A', 'beetle'),
+        'Eastern Hercules Beetle': t('#F1F8E9', '#DCEDC8', '#212121', '#5D4037', '#8BC34A', '#AED581', 'beetle'),
+        'Glorious Scarab Beetle': t('#E0F2F1', '#B2DFDB', '#004D40', '#00796B', '#009688', '#80CBC4', 'beetle'),
+        'Stag Beetles': t('#EFEBE9', '#D7CCC8', '#000000', '#3E2723', '#4E342E', '#BCAAA4', 'beetle'),
+        'Goliath Beetles': t('#FFFFFF', '#F5F5F5', '#000000', '#424242', '#212121', '#E0E0E0', 'beetle'),
+        'Rhinoceros beetle': t('#EFEBE9', '#D7CCC8', '#000000', '#212121', '#3E2723', '#BCAAA4', 'beetle')
+      },
+      ant: {
+        'Pavement Ant': t('#FAFAFA', '#EEEEEE', '#000000', '#424242', '#212121', '#9E9E9E', 'ant'),
+        'Carpenter Ant': t('#FAFAFA', '#EEEEEE', '#000000', '#B71C1C', '#212121', '#9E9E9E', 'ant'),
+        'Harvester Ant': t('#FFEBEE', '#FFCDD2', '#3E2723', '#D32F2F', '#E53935', '#EF9A9A', 'ant'),
+        'Common Black Garden Ant': t('#FAFAFA', '#EEEEEE', '#000000', '#212121', '#424242', '#9E9E9E', 'ant'),
+        'Fire Ant': t('#FFEBEE', '#FFCDD2', '#4A1A1A', '#B71C1C', '#D32F2F', '#EF9A9A', 'ant')
+      },
+
+      // Fictional
       fantasy: {
         'Dragon': t('#FFEBEE', '#FFCDD2', '#4A1A1A', '#B71C1C', '#D32F2F', '#EF9A9A', 'lizard'),
         'Hydra': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#4A148C', '#4CAF50', '#81C784', 'lizard'),
@@ -758,6 +889,13 @@
         'Tyrannosaurus Rex': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'lizard'),
         'Quetzalcoatlus': t('#FAFAFA', '#F5F5F5', '#212121', '#5D4037', '#9E9E9E', '#E0E0E0', 'bird'),
         'Plesiosaur': t('#E0F7FA', '#B2EBF2', '#004D40', '#00897B', '#00838F', '#80DEEA', 'turtle')
+      },
+      
+      // Wild Animals / More
+      fox: {
+        'Red Fox': t('#FFF3E0', '#FFE0B2', '#BF360C', '#212121', '#FF5722', '#FFCC80', 'dog'),
+        'Fennec Fox': t('#FFF8E1', '#FFECB3', '#4E342E', '#8D6E63', '#FFCA28', '#FFE082', 'dog'),
+        'Arctic Fox': t('#FFFFFF', '#F5F5F5', '#212121', '#9E9E9E', '#E0E0E0', '#9E9E9E', 'dog')
       },
       elephant: {
         'African Elephant': t('#EFEBE9', '#D7CCC8', '#212121', '#424242', '#5D4037', '#BCAAA4', 'elephant'),
@@ -777,6 +915,8 @@
         'Leopard': t('#FFF8E1', '#FFECB3', '#212121', '#3E2723', '#FFCA28', '#FFE082', 'mammal'),
         'Hyena': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#5D4037', '#BCAAA4', 'cat')
       },
+      
+      // Misc
       country: {
         'Afghanistan': _c('#FFFFFF', '#000000', '#E3000F', 'af'),
         'Albania': _c('#000000', '#E43C2F', '#E43C2F', 'al'),
@@ -981,7 +1121,9 @@
     const iconGenerators = {
       lizard: svgLizard, turtle: svgTurtle, dog: svgDog, cat: svgCat,
       bird: svgBird, fish: svgFish, snake: svgSnake, mammal: svgMammal, country: svgCountry,
-      frog: svgFrog, elephant: svgElephant
+      frog: svgFrog, elephant: svgElephant, insect: svgInsect, 
+      pig: svgPig, sheep: svgSheep, cow: svgCow, 
+      bee: svgBee, beetle: svgBeetle, ant: svgAnt, shark: svgShark
     };
 
     var gameState = {
