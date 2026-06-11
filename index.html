@@ -336,7 +336,6 @@
               </optgroup>
               <optgroup label="Fictional">
                 <option value="fantasy">Fantasy</option>
-                <option value="extinct">Extinct</option>
               </optgroup>
               <optgroup label="Wild Animals">
                 <option value="fox">Foxes</option>
@@ -344,6 +343,7 @@
                 <option value="more">More Wild Animals</option>
               </optgroup>
               <optgroup label="Misc">
+                <option value="extinct">Extinct</option>
                 <option value="country">Countries</option>
               </optgroup>
             </select>
@@ -598,7 +598,6 @@
     const svgElephant = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="45" rx="25" ry="25" fill="${c.accent}"/><ellipse cx="25" cy="45" rx="15" ry="25" fill="${c.muted}"/><ellipse cx="95" cy="45" rx="15" ry="25" fill="${c.muted}"/><path d="M 60 50 Q 60 80 50 75" stroke="${c.accent}" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="50" cy="40" r="3" fill="${c.fg}"/><circle cx="70" cy="40" r="3" fill="${c.fg}"/></svg>`;
     const svgInsect = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="40" rx="15" ry="30" fill="${c.accent}"/><ellipse cx="60" cy="20" rx="10" ry="10" fill="${c.bg2}"/><path d="M 45 40 L 30 30 M 75 40 L 90 30 M 45 50 L 30 60 M 75 50 L 90 60 M 45 60 L 35 75 M 75 60 L 85 75" stroke="${c.border}" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="55" cy="18" r="2" fill="${c.fg}"/><circle cx="65" cy="18" r="2" fill="${c.fg}"/></svg>`;
 
-    // --- New Unique Icons for Subcategories ---
     const svgPig = (c) => `<svg viewBox="0 0 120 80"><ellipse cx="60" cy="50" rx="30" ry="22" fill="${c.accent}"/><ellipse cx="85" cy="45" rx="12" ry="14" fill="${c.bg2}"/><circle cx="82" cy="45" r="2" fill="${c.fg}"/><circle cx="88" cy="45" r="2" fill="${c.fg}"/><path d="M 30 50 C 20 30 10 40 20 20" stroke="${c.border}" stroke-width="2" fill="none"/><polygon points="75,35 70,20 85,30" fill="${c.muted}"/><polygon points="95,35 100,20 90,30" fill="${c.muted}"/></svg>`;
     const svgSheep = (c) => `<svg viewBox="0 0 120 80"><circle cx="45" cy="45" r="15" fill="${c.accent}"/><circle cx="70" cy="45" r="15" fill="${c.accent}"/><circle cx="58" cy="32" r="15" fill="${c.accent}"/><circle cx="58" cy="55" r="15" fill="${c.accent}"/><ellipse cx="90" cy="45" rx="12" ry="10" fill="${c.bg2}"/><circle cx="85" cy="42" r="2" fill="${c.fg}"/><circle cx="95" cy="42" r="2" fill="${c.fg}"/></svg>`;
     const svgCow = (c) => `<svg viewBox="0 0 120 80"><rect x="35" y="30" width="45" height="30" rx="8" fill="${c.accent}"/><rect x="45" y="35" width="10" height="10" fill="${c.muted}"/><rect x="65" y="45" width="10" height="10" fill="${c.muted}"/><ellipse cx="90" cy="40" rx="15" ry="12" fill="${c.bg2}"/><path d="M 85 35 Q 80 20 75 25" stroke="${c.border}" stroke-width="3" fill="none"/><path d="M 95 35 Q 100 20 105 25" stroke="${c.border}" stroke-width="3" fill="none"/><circle cx="85" cy="38" r="2" fill="${c.fg}"/><circle cx="95" cy="38" r="2" fill="${c.fg}"/></svg>`;
@@ -713,7 +712,13 @@
         'Tree Frog': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#FF9800', '#4CAF50', '#81C784', 'frog'),
         'Mossy Frog': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#004D40', '#388E3C', '#81C784', 'frog'),
         'Pixie Frog': t('#F1F8E9', '#DCEDC8', '#33691E', '#5D4037', '#7CB342', '#AED581', 'frog'),
-        'Budget’s Frog': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'frog')
+        'Budgett’s Frog': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'frog'),
+        'Flying Frogs': t('#E8F5E9', '#C8E6C9', '#1B5E20', '#4CAF50', '#8BC34A', '#AED581', 'frog'),
+        'Goliath frog': t('#EFEBE9', '#D7CCC8', '#212121', '#4E342E', '#5D4037', '#BCAAA4', 'frog'),
+        'Dancing frogs': t('#F3E5F5', '#E1BEE7', '#4A148C', '#9C27B0', '#BA68C8', '#CE93D8', 'frog'),
+        'Night frogs': t('#212121', '#424242', '#FAFAFA', '#616161', '#757575', '#9E9E9E', 'frog'),
+        'Malagasy Reed Frogs': t('#FFF3E0', '#FFE0B2', '#E65100', '#FF9800', '#FFB74D', '#FFCC80', 'frog'),
+        'Occident Frog': t('#E0F7FA', '#B2EBF2', '#004D40', '#009688', '#4DB6AC', '#80CBC4', 'frog')
       },
       toad: {
         'Cane Toad': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#6D4C41', '#BCAAA4', 'frog'),
@@ -880,16 +885,6 @@
         'Unicorn': t('#FCE4EC', '#F8BBD0', '#880E4F', '#03A9F4', '#F06292', '#F48FB1', 'mammal'),
         'Phoenix': t('#FFF3E0', '#FFE0B2', '#BF360C', '#FF5722', '#FF9800', '#FFCC80', 'bird')
       },
-      extinct: {
-        'Wooly Mammoth': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#6D4C41', '#BCAAA4', 'mammal'),
-        'Sabertooth Tiger': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'cat'),
-        'Dodo': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'bird'),
-        'Golden Toad': t('#FFF8E1', '#FFECB3', '#BF360C', '#E65100', '#FFC107', '#FFE082', 'turtle'),
-        'Passenger Pigeon': t('#E8EAF6', '#C5CAE9', '#1A237E', '#5C6BC0', '#3F51B5', '#9FA8DA', 'bird'),
-        'Tyrannosaurus Rex': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'lizard'),
-        'Quetzalcoatlus': t('#FAFAFA', '#F5F5F5', '#212121', '#5D4037', '#9E9E9E', '#E0E0E0', 'bird'),
-        'Plesiosaur': t('#E0F7FA', '#B2EBF2', '#004D40', '#00897B', '#00838F', '#80DEEA', 'turtle')
-      },
       
       // Wild Animals / More
       fox: {
@@ -917,6 +912,16 @@
       },
       
       // Misc
+      extinct: {
+        'Wooly Mammoth': t('#EFEBE9', '#D7CCC8', '#3E2723', '#4E342E', '#6D4C41', '#BCAAA4', 'mammal'),
+        'Sabertooth Tiger': t('#FFF3E0', '#FFE0B2', '#3E2723', '#4E342E', '#FF9800', '#FFCC80', 'cat'),
+        'Dodo': t('#ECEFF1', '#CFD8DC', '#263238', '#546E7A', '#78909C', '#B0BEC5', 'bird'),
+        'Golden Toad': t('#FFF8E1', '#FFECB3', '#BF360C', '#E65100', '#FFC107', '#FFE082', 'turtle'),
+        'Passenger Pigeon': t('#E8EAF6', '#C5CAE9', '#1A237E', '#5C6BC0', '#3F51B5', '#9FA8DA', 'bird'),
+        'Tyrannosaurus Rex': t('#EFEBE9', '#D7CCC8', '#212121', '#3E2723', '#4E342E', '#BCAAA4', 'lizard'),
+        'Quetzalcoatlus': t('#FAFAFA', '#F5F5F5', '#212121', '#5D4037', '#9E9E9E', '#E0E0E0', 'bird'),
+        'Plesiosaur': t('#E0F7FA', '#B2EBF2', '#004D40', '#00897B', '#00838F', '#80DEEA', 'turtle')
+      },
       country: {
         'Afghanistan': _c('#FFFFFF', '#000000', '#E3000F', 'af'),
         'Albania': _c('#000000', '#E43C2F', '#E43C2F', 'al'),
